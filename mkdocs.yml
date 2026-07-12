@@ -1,0 +1,78 @@
+# ============================================================
+# MkDocs 配置文件
+# 基于 6 个 Python 爬虫教程项目生成文档站点
+# ============================================================
+
+site_name: Python爬虫实战教程 - 医疗公开数据
+site_description: 零基础Python爬虫教学，6个真实医疗公开数据项目实战
+site_author: 爬虫教学团队
+site_url: https://johnzee1.github.io/spider/
+
+# ============================================================
+# 主题配置：Material Design 风格
+# ============================================================
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.sections        # 侧栏按分组展开
+    - navigation.top             # 回到顶部按钮
+    - navigation.tracking        # URL 自动跟随侧栏滚动位置
+    - navigation.path            # 面包屑导航路径
+    - search.highlight           # 搜索结果高亮
+    - search.suggest             # 搜索自动建议
+    - toc.follow                 # 右侧大纲自动跟随
+    - toc.integrate              # 侧栏集成目录
+    - content.code.copy          # 代码块复制按钮
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切换到深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换到浅色模式
+
+# ============================================================
+# 导航栏配置
+# ============================================================
+nav:
+  - 首页: index.md
+  - 项目1: 项目1/项目1-爬取国家中医药管理局时政要闻数据.md
+  - 项目2: 项目2/项目2-爬取医疗健康资讯网站数据.md
+  - 项目3: 项目3/项目3-XPath爬取医学百科药品数据.md
+  - 项目4: 项目4/项目4-爬取医学百科网站数据.md
+  - 项目5: 项目5/项目5-Scrapy入门指导书-完整版.md
+  - 项目6: 项目6/项目6_Selenium动态爬虫实战.md
+
+# ============================================================
+# Markdown 扩展配置
+# ============================================================
+markdown_extensions:
+  - admonition                   # 提示框（!!! note / warning / danger）
+  - pymdownx.highlight:          # 代码高亮
+      anchor_linenums: true
+  - pymdownx.superfences         # 增强的代码块
+  - pymdownx.details             # 可折叠内容
+  - pymdownx.inlinehilite        # 行内代码高亮
+  - attr_list                    # 属性列表（{: .class}）
+  - md_in_html                   # Markdown 嵌入 HTML
+  - tables                       # 增强表格
+  - toc:                         # 目录
+      permalink: true            # 标题旁显示锚点链接
+      toc_depth: 3               # 三级标题都显示在大纲中
+
+# ============================================================
+# 插件配置
+# ============================================================
+plugins:
+  - search:
+      lang: zh
+      separator: '[\s\u200b\-_,:!=\[\]()"\\/]+'

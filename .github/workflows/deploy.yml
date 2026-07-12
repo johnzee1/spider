@@ -1,0 +1,37 @@
+name: 部署文档到 GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: 安装 MkDocs Material
+        run: pip install mkdocs-material
+
+      - name: 构建文档站点
+        run: mkdocs build
+
+      - name: 上传构建产物
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: site/
+
+      - name: 部署到 GitHub Pages
+        uses: actions/deploy-pages@v2
