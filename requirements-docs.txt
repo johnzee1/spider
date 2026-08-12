@@ -1,0 +1,2 @@
+# Build the MkDocs tutorial site.
+mkdocs-material>=9.5,<10
