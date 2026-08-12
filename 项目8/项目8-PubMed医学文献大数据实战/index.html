@@ -1,0 +1,2255 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="零基础Python爬虫教学，9个医疗公开数据、医疗大数据与AI项目实战">
+      
+      
+        <meta name="author" content="爬虫教学团队">
+      
+      
+        <link rel="canonical" href="https://johnzee1.github.io/spider/%E9%A1%B9%E7%9B%AE8/%E9%A1%B9%E7%9B%AE8-PubMed%E5%8C%BB%E5%AD%A6%E6%96%87%E7%8C%AE%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98/">
+      
+      
+        <link rel="prev" href="../../%E9%A1%B9%E7%9B%AE7/%E9%A1%B9%E7%9B%AE7-ClinicalTrials%E4%B8%B4%E5%BA%8A%E8%AF%95%E9%AA%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98/">
+      
+      
+        <link rel="next" href="../../%E9%A1%B9%E7%9B%AE9/%E9%A1%B9%E7%9B%AE9-AI%E5%8C%BB%E5%AD%A6%E6%96%87%E7%8C%AE%E6%99%BA%E8%83%BD%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>项目8-PubMed 医学文献大数据保姆级实战 - Python爬虫实战教程 - 医疗公开数据</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#8pubmed" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Python爬虫实战教程 - 医疗公开数据" class="md-header__button md-logo" aria-label="Python爬虫实战教程 - 医疗公开数据" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Python爬虫实战教程 - 医疗公开数据
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              项目8-PubMed 医学文献大数据保姆级实战
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Python爬虫实战教程 - 医疗公开数据" class="md-nav__button md-logo" aria-label="Python爬虫实战教程 - 医疗公开数据" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Python爬虫实战教程 - 医疗公开数据
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE1/%E9%A1%B9%E7%9B%AE1-%E7%88%AC%E5%8F%96%E5%9B%BD%E5%AE%B6%E4%B8%AD%E5%8C%BB%E8%8D%AF%E7%AE%A1%E7%90%86%E5%B1%80%E6%97%B6%E6%94%BF%E8%A6%81%E9%97%BB%E6%95%B0%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE2/%E9%A1%B9%E7%9B%AE2-%E7%88%AC%E5%8F%96%E5%8C%BB%E7%96%97%E5%81%A5%E5%BA%B7%E8%B5%84%E8%AE%AF%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE3/%E9%A1%B9%E7%9B%AE3-XPath%E7%88%AC%E5%8F%96%E5%8C%BB%E5%AD%A6%E7%99%BE%E7%A7%91%E8%8D%AF%E5%93%81%E6%95%B0%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE4/%E9%A1%B9%E7%9B%AE4-%E7%88%AC%E5%8F%96%E5%8C%BB%E5%AD%A6%E7%99%BE%E7%A7%91%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE5/%E9%A1%B9%E7%9B%AE5-Scrapy%E5%85%A5%E9%97%A8%E6%8C%87%E5%AF%BC%E4%B9%A6-%E5%AE%8C%E6%95%B4%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE6/%E9%A1%B9%E7%9B%AE6_Selenium%E5%8A%A8%E6%80%81%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE7/%E9%A1%B9%E7%9B%AE7-ClinicalTrials%E4%B8%B4%E5%BA%8A%E8%AF%95%E9%AA%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目7（保姆级）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目8（保姆级）
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目8（保姆级）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        合规提示
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#81-pubmedpmid-doi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 先认识 PubMed、PMID 和 DOI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 先认识 PubMed、PMID 和 DOI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#811-pubmed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1.1 PubMed 像什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#812-pmid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1.2 PMID 是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#813-pmid-doi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1.3 PMID 和 DOI 不一样
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#814" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1.4 为什么这次会遇到两种数据格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#815-json-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1.5 JSON 和 XML 的外观区别
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#816" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1.6 四步学习路线
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 准备项目文件夹
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 准备项目文件夹">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#821" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.1 创建文件夹
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#822-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.2 检查 Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#823-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.3 安装 requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 先学会写一个简单检索式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3 先学会写一个简单检索式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#831" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3.1 最简单的关键词
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#832" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3.2 指定只找标题和摘要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#833" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3.3 同时满足两个条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#834" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3.4 常见字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84-13-pmid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 第1步：搜索3个 PMID
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.4 第1步：搜索3个 PMID">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#841" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4.1 为什么第一步只拿编号
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#842" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4.2 创建文件并修改邮箱
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#843" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4.3 完整代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#844" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4.4 运行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#845" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4.5 预期输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#846" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4.6 逐个认识参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#847" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4.7 常见错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85-21-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5 第2步：下载1篇文献的 XML
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.5 第2步：下载1篇文献的 XML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#851" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5.1 两次请求是怎样接起来的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#852" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5.2 创建文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#853" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5.3 代码分块讲解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#854" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5.4 运行和预期输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#86-31-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6 第3步：解析1篇 XML
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.6 第3步：解析1篇 XML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#861-elementtree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6.1 ElementTree 是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#862" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6.2 创建文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#863" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6.3 先做最小实验：只找标题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#864-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6.4 为什么完整代码不用 .text
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#865-pmid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6.5 提取 PMID 和标题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#866" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6.6 提取所有作者
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#867" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6.7 提取分段摘要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#868-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6.8 运行完整第3步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#869" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6.9 常见错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#87-410" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.7 第4步：批量保存10篇文献
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.7 第4步：批量保存10篇文献">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#871" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.7.1 批量请求，不是一篇请求一次
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#872" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.7.2 创建文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#873" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.7.3 完整流程分成四块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#874" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.7.4 运行
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#88-pmid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.8 再学分页：获取不止一批 PMID
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#89" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.9 运行完整工程版
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.9 运行完整工程版">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#891-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.9.1 第一次只取20篇
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#892" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.9.2 更换检索式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#893" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.9.3 三个输出文件分别做什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#810" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.10 完整排错手册
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.10 完整排错手册">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8101-modulenotfounderror-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.10.1 ModuleNotFoundError: requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8102-filenotfounderror-one_articlexml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.10.2 FileNotFoundError: one_article.xml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8103-parseerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.10.3 ParseError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8104-429" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.10.4 状态码429
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8105" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.10.5 有标题但摘要为空
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.10.6 作者或日期格式不一致
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8107-email" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.10.7 命令行提示缺少 --email
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8108-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.10.8 CSV 打开后摘要挤成一行
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#811" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.11 课后练习（带提示）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.11 课后练习（带提示）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习1：换成哮喘（必做）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21020" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习2：把10篇改成20篇（必做）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习3：统计有摘要的数量（进阶）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习4：增加出版类型（进阶）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习5：比较两个检索式（挑战）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你已经学会
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        离开本项目之前，请逐项自检
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE9/%E9%A1%B9%E7%9B%AE9-AI%E5%8C%BB%E5%AD%A6%E6%96%87%E7%8C%AE%E6%99%BA%E8%83%BD%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目9（AI保姆级）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="8pubmed">项目8：PubMed 医学文献大数据保姆级实战<a class="headerlink" href="#8pubmed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>适合谁学习：</strong> 已经完成项目7，能用 requests 获取 JSON，但从来没有使用过 PubMed 或 XML 的同学。</p>
+<p><strong>最终成果：</strong> 输入一个医学主题，搜索一批 PubMed 文献，提取 PMID、标题、作者、期刊和摘要，保存为 CSV 与 JSON。</p>
+<p><strong>学习方法：</strong> 本项目仍然使用“小步运行”。先找3个编号，再下载1篇 XML，再解析1篇，最后才处理10篇。</p>
+</blockquote>
+<hr />
+<h2 id="_1">合规提示<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>PubMed 是美国国家医学图书馆提供的医学文献检索系统。本项目使用 NCBI 官方 E-utilities API。</p>
+<ol>
+<li>只读取公开的文献题录和摘要。</li>
+<li>不下载论文全文，不绕过期刊付费页面。</li>
+<li>API 参数中填写自己的联系邮箱。</li>
+<li>没有 API Key 时，每秒不要超过3次请求。本教程每次请求后等待0.4秒。</li>
+<li>程序提取的摘要不能替代完整论文，也不能直接作为诊疗依据。</li>
+</ol>
+<p>规则有变化时，以 <a href="https://www.ncbi.nlm.nih.gov/books/NBK25497/">NCBI E-utilities 官方指南</a> 为准。</p>
+<hr />
+<h2 id="81-pubmedpmid-doi">8.1 先认识 PubMed、PMID 和 DOI<a class="headerlink" href="#81-pubmedpmid-doi" title="Permanent link">&para;</a></h2>
+<h3 id="811-pubmed">8.1.1 PubMed 像什么<a class="headerlink" href="#811-pubmed" title="Permanent link">&para;</a></h3>
+<p>可以把 PubMed 想成一座巨大的医学图书馆目录：</p>
+<ul>
+<li>它告诉你论文叫什么；</li>
+<li>谁写了论文；</li>
+<li>发表在哪本期刊；</li>
+<li>很多记录还提供摘要；</li>
+<li>但它不等于所有论文的免费全文仓库。</li>
+</ul>
+<p>爬虫的任务是读取“目录卡片”，不是翻墙进入收费书库。</p>
+<h3 id="812-pmid">8.1.2 PMID 是什么<a class="headerlink" href="#812-pmid" title="Permanent link">&para;</a></h3>
+<p>每条 PubMed 记录都有一个编号，叫 PMID。例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>41384369
+</code></pre></div>
+<p>把编号放进下面的网址，就能打开原始记录：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>https://pubmed.ncbi.nlm.nih.gov/41384369/
+</code></pre></div>
+<p>PMID 就像学生的学号：标题可能相似，编号不会混淆。本项目用 PMID 识别每一篇文献。</p>
+<h3 id="813-pmid-doi">8.1.3 PMID 和 DOI 不一样<a class="headerlink" href="#813-pmid-doi" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>谁分配</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PMID</td>
+<td>PubMed</td>
+<td>标识 PubMed 中的一条记录</td>
+</tr>
+<tr>
+<td>DOI</td>
+<td>出版机构</td>
+<td>标识一篇正式出版物</td>
+</tr>
+</tbody>
+</table>
+<p>某些老文献没有 DOI，但只要被 PubMed 收录就有 PMID。因此程序首先使用 PMID。</p>
+<h3 id="814">8.1.4 为什么这次会遇到两种数据格式<a class="headerlink" href="#814" title="Permanent link">&para;</a></h3>
+<p>PubMed 把搜索和详情拆成两个工具：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>做什么</th>
+<th>返回格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ESearch</td>
+<td>根据关键词找 PMID</td>
+<td>JSON</td>
+</tr>
+<tr>
+<td>EFetch</td>
+<td>根据 PMID 取标题、作者和摘要</td>
+<td>XML</td>
+</tr>
+</tbody>
+</table>
+<p>流程像去图书馆：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>告诉目录员要找“糖尿病”
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>        ↓ ESearch
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>拿到3个书目编号 PMID
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        ↓ EFetch
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>根据编号取回3张详细目录卡
+</code></pre></div>
+<h3 id="815-json-xml">8.1.5 JSON 和 XML 的外观区别<a class="headerlink" href="#815-json-xml" title="Permanent link">&para;</a></h3>
+<p>JSON：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;pmid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;41384369&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example title&quot;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>XML：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">&lt;PubmedArticle&gt;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&lt;PMID&gt;</span>41384369<span class="nt">&lt;/PMID&gt;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&lt;ArticleTitle&gt;</span>Example<span class="w"> </span>title<span class="nt">&lt;/ArticleTitle&gt;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nt">&lt;/PubmedArticle&gt;</span>
+</code></pre></div>
+<p>XML 使用一对开始和结束标签包住内容：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&lt;ArticleTitle&gt;</span>标题文字<span class="nt">&lt;/ArticleTitle&gt;</span>
+</code></pre></div>
+<p>项目3学过 XPath 的同学会觉得熟悉。没有关系，本项目会从寻找一个标签开始。</p>
+<h3 id="816">8.1.6 四步学习路线<a class="headerlink" href="#816" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>文件名</th>
+<th>本步目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第1步</td>
+<td><code>step1_search_pmids.py</code></td>
+<td>搜索3个 PMID</td>
+</tr>
+<tr>
+<td>第2步</td>
+<td><code>step2_fetch_one_xml.py</code></td>
+<td>下载1篇文献 XML</td>
+</tr>
+<tr>
+<td>第3步</td>
+<td><code>step3_parse_one_article.py</code></td>
+<td>从 XML 提取标题、作者和摘要</td>
+</tr>
+<tr>
+<td>第4步</td>
+<td><code>step4_save_ten_articles.py</code></td>
+<td>批量获取10篇并保存 CSV</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="82">8.2 准备项目文件夹<a class="headerlink" href="#82" title="Permanent link">&para;</a></h2>
+<p>项目9要继续使用本项目的数据，因此建议创建一个连续使用的文件夹。</p>
+<h3 id="821">8.2.1 创建文件夹<a class="headerlink" href="#821" title="Permanent link">&para;</a></h3>
+<ol>
+<li>在桌面新建文件夹 <code>pubmed_ai_project</code>。</li>
+<li>打开 VS Code。</li>
+<li>点击“文件” -&gt; “打开文件夹”。</li>
+<li>选择 <code>pubmed_ai_project</code>。</li>
+<li>点击“终端” -&gt; “新建终端”。</li>
+</ol>
+<h3 id="822-python">8.2.2 检查 Python<a class="headerlink" href="#822-python" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>--version
+</code></pre></div>
+<p>应该输出 Python 3.8 或更高版本。</p>
+<h3 id="823-requests">8.2.3 安装 requests<a class="headerlink" href="#823-requests" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>requests
+</code></pre></div>
+<p>验证：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import requests; print(&#39;requests安装成功&#39;)&quot;</span>
+</code></pre></div>
+<p>预期输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>requests安装成功
+</code></pre></div>
+<p>XML 解析器 <code>xml.etree.ElementTree</code> 是 Python 自带的，不需要安装 <code>xml</code>。</p>
+<div class="admonition warning">
+<p class="admonition-title">不要执行 pip install xml</p>
+<p>本项目使用的是 Python 标准库。额外安装名字相似的包反而可能造成冲突。</p>
+</div>
+<hr />
+<h2 id="83">8.3 先学会写一个简单检索式<a class="headerlink" href="#83" title="Permanent link">&para;</a></h2>
+<h3 id="831">8.3.1 最简单的关键词<a class="headerlink" href="#831" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>diabetes
+</code></pre></div>
+<p>这会在 PubMed 的多个字段中搜索，结果很多。</p>
+<h3 id="832">8.3.2 指定只找标题和摘要<a class="headerlink" href="#832" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>diabetes[Title/Abstract]
+</code></pre></div>
+<p>方括号中的 <code>Title/Abstract</code> 是字段范围，不是 Python 列表。</p>
+<h3 id="833">8.3.3 同时满足两个条件<a class="headerlink" href="#833" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>diabetes[Title/Abstract] AND exercise[Title/Abstract]
+</code></pre></div>
+<p><code>AND</code> 表示两边都要满足，必须大写更容易辨认。</p>
+<h3 id="834">8.3.4 常见字段<a class="headerlink" href="#834" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>写法</th>
+<th>中文意思</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[Title/Abstract]</code></td>
+<td>标题或摘要</td>
+<td><code>asthma[Title/Abstract]</code></td>
+</tr>
+<tr>
+<td><code>[MeSH Terms]</code></td>
+<td>医学主题词</td>
+<td><code>asthma[MeSH Terms]</code></td>
+</tr>
+<tr>
+<td><code>[dp]</code></td>
+<td>出版日期</td>
+<td><code>2025:2026[dp]</code></td>
+</tr>
+<tr>
+<td><code>[pt]</code></td>
+<td>文献类型</td>
+<td><code>clinical trial[pt]</code></td>
+</tr>
+</tbody>
+</table>
+<p>第一次练习只使用：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>diabetes[Title/Abstract]
+</code></pre></div>
+<hr />
+<h2 id="84-13-pmid">8.4 第1步：搜索3个 PMID<a class="headerlink" href="#84-13-pmid" title="Permanent link">&para;</a></h2>
+<h3 id="841">8.4.1 为什么第一步只拿编号<a class="headerlink" href="#841" title="Permanent link">&para;</a></h3>
+<p>ESearch 的任务是“查目录”。它能很快告诉我们：</p>
+<ul>
+<li>一共有多少条符合条件；</li>
+<li>本次返回了哪些 PMID。</li>
+</ul>
+<p>它不会返回完整摘要。完整资料要在第2步用 EFetch 获取。</p>
+<h3 id="842">8.4.2 创建文件并修改邮箱<a class="headerlink" href="#842" title="Permanent link">&para;</a></h3>
+<p>新建文件：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>step1_search_pmids.py
+</code></pre></div>
+<p><a download="download" href="../step1_search_pmids.py">下载第1步代码</a></p>
+<p>打开代码后，找到：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">my_email</span> <span class="o">=</span> <span class="s2">&quot;your_email@example.com&quot;</span>
+</code></pre></div>
+<p>改成你自己的联系邮箱。例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">my_email</span> <span class="o">=</span> <span class="s2">&quot;xiaowang@example.com&quot;</span>
+</code></pre></div>
+<p>这里的邮箱会作为 API 查询参数发给 NCBI，用于标识程序使用者。不要填写密码。</p>
+<h3 id="843">8.4.3 完整代码<a class="headerlink" href="#843" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># -*- coding: utf-8 -*-</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="sd">&quot;&quot;&quot;项目8第1步：在 PubMed 中搜索3个 PMID。&quot;&quot;&quot;</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="c1"># 请把下面的邮箱改成你自己的邮箱。</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="n">my_email</span> <span class="o">=</span> <span class="s2">&quot;your_email@example.com&quot;</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi&quot;</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>    <span class="s2">&quot;db&quot;</span><span class="p">:</span> <span class="s2">&quot;pubmed&quot;</span><span class="p">,</span>                       <span class="c1"># 在 PubMed 数据库中搜索</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>    <span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="s2">&quot;diabetes[Title/Abstract]&quot;</span><span class="p">,</span>   <span class="c1"># 检索式</span>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>    <span class="s2">&quot;retmode&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>                    <span class="c1"># 返回 JSON</span>
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>    <span class="s2">&quot;retmax&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>                           <span class="c1"># 只返回3个编号</span>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>    <span class="s2">&quot;tool&quot;</span><span class="p">:</span> <span class="s2">&quot;medical_data_course&quot;</span><span class="p">,</span>
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">my_email</span><span class="p">,</span>
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="p">}</span>
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在搜索 PubMed...&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;状态码：&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a><span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a>
+<a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a><span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a><span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;esearchresult&quot;</span><span class="p">]</span>
+<a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a>
+<a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;符合条件的文献总数：&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">])</span>
+<a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;本次拿到的 PMID：&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;idlist&quot;</span><span class="p">])</span>
+<a id="__codelineno-17-29" name="__codelineno-17-29" href="#__codelineno-17-29"></a>
+<a id="__codelineno-17-30" name="__codelineno-17-30" href="#__codelineno-17-30"></a><span class="k">for</span> <span class="n">pmid</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;idlist&quot;</span><span class="p">]:</span>
+<a id="__codelineno-17-31" name="__codelineno-17-31" href="#__codelineno-17-31"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;文献页面：https://pubmed.ncbi.nlm.nih.gov/&quot;</span> <span class="o">+</span> <span class="n">pmid</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="844">8.4.4 运行<a class="headerlink" href="#844" title="Permanent link">&para;</a></h3>
+<p>保存后，在终端输入：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>python<span class="w"> </span>step1_search_pmids.py
+</code></pre></div>
+<h3 id="845">8.4.5 预期输出<a class="headerlink" href="#845" title="Permanent link">&para;</a></h3>
+<p>总数和 PMID 会随数据库更新而变化，形式应该类似：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>正在搜索 PubMed...
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>状态码： 200
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>符合条件的文献总数： 800000
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>本次拿到的 PMID： [&#39;...&#39;, &#39;...&#39;, &#39;...&#39;]
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>文献页面：https://pubmed.ncbi.nlm.nih.gov/.../
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>文献页面：https://pubmed.ncbi.nlm.nih.gov/.../
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>文献页面：https://pubmed.ncbi.nlm.nih.gov/.../
+</code></pre></div>
+<p>依次复制三个网址到浏览器，确认都能打开 PubMed 页面。</p>
+<h3 id="846">8.4.6 逐个认识参数<a class="headerlink" href="#846" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="s2">&quot;db&quot;</span><span class="p">:</span> <span class="s2">&quot;pubmed&quot;</span>
+</code></pre></div>
+<p>NCBI 有多个数据库，这行规定只查 PubMed。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="s2">&quot;retmax&quot;</span><span class="p">:</span> <span class="mi">3</span>
+</code></pre></div>
+<p><code>retmax</code> 是 return maximum 的缩写，表示最多返回3个编号。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;esearchresult&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p>搜索结果主要内容放在 <code>esearchresult</code> 字典中。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">result</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p>这是符合条件的总数，不是本次已下载的数量。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">result</span><span class="p">[</span><span class="s2">&quot;idlist&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p>这是本次真正返回的 PMID 列表，只有3个。</p>
+<div class="admonition success">
+<p class="admonition-title">第1个检查点</p>
+<p>状态码是200，终端输出3个 PMID，三个原始页面都能打开。</p>
+</div>
+<h3 id="847">8.4.7 常见错误<a class="headerlink" href="#847" title="Permanent link">&para;</a></h3>
+<h4 id="indexerror-pmid"><code>IndexError</code> 或 PMID 列表为空<a class="headerlink" href="#indexerror-pmid" title="Permanent link">&para;</a></h4>
+<p>说明检索式没有结果。先把 <code>term</code> 改回教程中的：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="s2">&quot;diabetes[Title/Abstract]&quot;</span>
+</code></pre></div>
+<h4 id="400">状态码400<a class="headerlink" href="#400" title="Permanent link">&para;</a></h4>
+<p>检查 <code>db</code>、<code>term</code>、<code>retmode</code> 是否拼写正确，英文引号和逗号是否完整。</p>
+<hr />
+<h2 id="85-21-xml">8.5 第2步：下载1篇文献的 XML<a class="headerlink" href="#85-21-xml" title="Permanent link">&para;</a></h2>
+<h3 id="851">8.5.1 两次请求是怎样接起来的<a class="headerlink" href="#851" title="Permanent link">&para;</a></h3>
+<p>这个程序要请求两次：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>第1次请求 ESearch -&gt; 得到1个 PMID
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>第2次请求 EFetch  -&gt; 把这个 PMID 交回去 -&gt; 得到详情 XML
+</code></pre></div>
+<p>这叫“两阶段采集”。第1次的输出，是第2次的输入。</p>
+<h3 id="852">8.5.2 创建文件<a class="headerlink" href="#852" title="Permanent link">&para;</a></h3>
+<p>新建：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>step2_fetch_one_xml.py
+</code></pre></div>
+<p><a download="download" href="../step2_fetch_one_xml.py">下载第2步代码</a></p>
+<p>同样要把代码开头的邮箱改成自己的。</p>
+<h3 id="853">8.5.3 代码分块讲解<a class="headerlink" href="#853" title="Permanent link">&para;</a></h3>
+<p>第一块搜索一个 PMID：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="n">my_email</span> <span class="o">=</span> <span class="s2">&quot;your_email@example.com&quot;</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;https://eutils.ncbi.nlm.nih.gov/entrez/eutils&quot;</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="n">search_params</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>    <span class="s2">&quot;db&quot;</span><span class="p">:</span> <span class="s2">&quot;pubmed&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>    <span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="s2">&quot;diabetes[Title/Abstract]&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>    <span class="s2">&quot;retmode&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>    <span class="s2">&quot;retmax&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>    <span class="s2">&quot;tool&quot;</span><span class="p">:</span> <span class="s2">&quot;medical_data_course&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">my_email</span><span class="p">,</span>
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a><span class="p">}</span>
+<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a><span class="n">search_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>    <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;/esearch.fcgi&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">search_params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span>
+<a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a><span class="p">)</span>
+<a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a><span class="n">search_response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<a id="__codelineno-28-18" name="__codelineno-28-18" href="#__codelineno-28-18"></a><span class="n">pmid</span> <span class="o">=</span> <span class="n">search_response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;esearchresult&quot;</span><span class="p">][</span><span class="s2">&quot;idlist&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-28-19" name="__codelineno-28-19" href="#__codelineno-28-19"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;找到 PMID：&quot;</span><span class="p">,</span> <span class="n">pmid</span><span class="p">)</span>
+</code></pre></div>
+<p>第二块用这个 PMID 获取 XML：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="n">fetch_params</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>    <span class="s2">&quot;db&quot;</span><span class="p">:</span> <span class="s2">&quot;pubmed&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">pmid</span><span class="p">,</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>    <span class="s2">&quot;retmode&quot;</span><span class="p">:</span> <span class="s2">&quot;xml&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>    <span class="s2">&quot;rettype&quot;</span><span class="p">:</span> <span class="s2">&quot;abstract&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>    <span class="s2">&quot;tool&quot;</span><span class="p">:</span> <span class="s2">&quot;medical_data_course&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">my_email</span><span class="p">,</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="p">}</span>
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="n">fetch_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>    <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;/efetch.fcgi&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">fetch_params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span>
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="p">)</span>
+<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="n">fetch_response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+</code></pre></div>
+<p>注意这次的 <code>retmode</code> 是 <code>xml</code>，不是 <code>json</code>。</p>
+<p>第三块打印并保存：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">xml_text</span> <span class="o">=</span> <span class="n">fetch_response</span><span class="o">.</span><span class="n">text</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;XML长度：&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">xml_text</span><span class="p">),</span> <span class="s2">&quot;个字符&quot;</span><span class="p">)</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;XML开头500个字符：&quot;</span><span class="p">)</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">xml_text</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;one_article.xml&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xml_text</span><span class="p">)</span>
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;保存完成：one_article.xml&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>完整代码已经在下载文件中。</p>
+<h3 id="854">8.5.4 运行和预期输出<a class="headerlink" href="#854" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>python<span class="w"> </span>step2_fetch_one_xml.py
+</code></pre></div>
+<p>应该看到：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>找到 PMID： ...
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>XML长度： ... 个字符
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>XML开头500个字符：
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>&lt;?xml version=&quot;1.0&quot; ...
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>&lt;PubmedArticleSet&gt;...
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>保存完成：one_article.xml
+</code></pre></div>
+<p>VS Code 左侧会出现 <code>one_article.xml</code>。双击打开，然后按 <code>Ctrl+F</code> 搜索：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>ArticleTitle
+</code></pre></div>
+<p>应该能找到：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="nt">&lt;ArticleTitle&gt;</span>这里是文献标题<span class="nt">&lt;/ArticleTitle&gt;</span>
+</code></pre></div>
+<p>再搜索：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>AbstractText
+</code></pre></div>
+<p>如果找不到，可能这篇文献本来就没有公开摘要，不是程序错误。</p>
+<div class="admonition success">
+<p class="admonition-title">第2个检查点</p>
+<p>项目文件夹中出现 <code>one_article.xml</code>，文件开头有 <code>PubmedArticleSet</code>，能找到 <code>ArticleTitle</code>。</p>
+</div>
+<hr />
+<h2 id="86-31-xml">8.6 第3步：解析1篇 XML<a class="headerlink" href="#86-31-xml" title="Permanent link">&para;</a></h2>
+<h3 id="861-elementtree">8.6.1 ElementTree 是什么<a class="headerlink" href="#861-elementtree" title="Permanent link">&para;</a></h3>
+<p>XML 中的标签像一棵树：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>PubmedArticle
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>└── MedlineCitation
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>    ├── PMID
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>    └── Article
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>        ├── ArticleTitle
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>        ├── AuthorList
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>        │   └── Author
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>        └── Abstract
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>            └── AbstractText
+</code></pre></div>
+<p><code>xml.etree.ElementTree</code> 是 Python 自带的“爬树工具”。它可以沿着标签寻找内容。</p>
+<h3 id="862">8.6.2 创建文件<a class="headerlink" href="#862" title="Permanent link">&para;</a></h3>
+<p>新建：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>step3_parse_one_article.py
+</code></pre></div>
+<p><a download="download" href="../step3_parse_one_article.py">下载第3步代码</a></p>
+<p>这个程序必须和 <code>one_article.xml</code> 放在同一个文件夹中。</p>
+<h3 id="863">8.6.3 先做最小实验：只找标题<a class="headerlink" href="#863" title="Permanent link">&para;</a></h3>
+<p>可以先输入下面几行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">xml.etree.ElementTree</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ET</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;one_article.xml&quot;</span><span class="p">)</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="n">title_node</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//ArticleTitle&quot;</span><span class="p">)</span>
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">title_node</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<p>运行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>python<span class="w"> </span>step3_parse_one_article.py
+</code></pre></div>
+<p>如果输出一个英文标题，说明 XML 文件读取和标签查找都成功。</p>
+<h3 id="864-text">8.6.4 为什么完整代码不用 <code>.text</code><a class="headerlink" href="#864-text" title="Permanent link">&para;</a></h3>
+<p>有些标题内部还包含斜体等子标签：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="nt">&lt;ArticleTitle&gt;</span>Effects<span class="w"> </span>of<span class="w"> </span><span class="nt">&lt;i&gt;</span>Example<span class="nt">&lt;/i&gt;</span><span class="w"> </span>Treatment<span class="nt">&lt;/ArticleTitle&gt;</span>
+</code></pre></div>
+<p>直接使用 <code>.text</code> 可能只得到：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>Effects of
+</code></pre></div>
+<p>因此完整代码使用：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_all_text</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>    <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">itertext</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</code></pre></div>
+<p><code>itertext()</code> 会把标签内部所有文字依次取出。</p>
+<h3 id="865-pmid">8.6.5 提取 PMID 和标题<a class="headerlink" href="#865-pmid" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="n">pmid_node</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//PMID&quot;</span><span class="p">)</span>
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="n">title_node</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//ArticleTitle&quot;</span><span class="p">)</span>
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>
+<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="n">pmid</span> <span class="o">=</span> <span class="n">get_all_text</span><span class="p">(</span><span class="n">pmid_node</span><span class="p">)</span>
+<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="n">title</span> <span class="o">=</span> <span class="n">get_all_text</span><span class="p">(</span><span class="n">title_node</span><span class="p">)</span>
+</code></pre></div>
+<p><code>.//ArticleTitle</code> 的意思是：从当前根节点向下寻找第一个 <code>ArticleTitle</code>，中间隔多少层都可以。</p>
+<h3 id="866">8.6.6 提取所有作者<a class="headerlink" href="#866" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="n">authors</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="k">for</span> <span class="n">author_node</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;.//AuthorList/Author&quot;</span><span class="p">):</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>    <span class="n">last_name</span> <span class="o">=</span> <span class="n">get_all_text</span><span class="p">(</span><span class="n">author_node</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;LastName&quot;</span><span class="p">))</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>    <span class="n">initials</span> <span class="o">=</span> <span class="n">get_all_text</span><span class="p">(</span><span class="n">author_node</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;Initials&quot;</span><span class="p">))</span>
+<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>    <span class="n">collective_name</span> <span class="o">=</span> <span class="n">get_all_text</span><span class="p">(</span><span class="n">author_node</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;CollectiveName&quot;</span><span class="p">))</span>
+<a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>
+<a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>    <span class="k">if</span> <span class="n">collective_name</span><span class="p">:</span>
+<a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a>        <span class="n">authors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">collective_name</span><span class="p">)</span>
+<a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a>    <span class="k">elif</span> <span class="n">last_name</span><span class="p">:</span>
+<a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a>        <span class="n">authors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">last_name</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">initials</span><span class="p">)</span>
+</code></pre></div>
+<p><code>find()</code> 找第一个，<code>findall()</code> 找全部。作者不止一个，因此这里必须使用 <code>findall()</code>。</p>
+<p>有些“作者”不是个人，而是研究协作组，所以还要检查 <code>CollectiveName</code>。</p>
+<h3 id="867">8.6.7 提取分段摘要<a class="headerlink" href="#867" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="n">abstract_parts</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="k">for</span> <span class="n">abstract_node</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;.//Abstract/AbstractText&quot;</span><span class="p">):</span>
+<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>    <span class="n">label</span> <span class="o">=</span> <span class="n">abstract_node</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">get_all_text</span><span class="p">(</span><span class="n">abstract_node</span><span class="p">)</span>
+<a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>
+<a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>    <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
+<a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>        <span class="n">abstract_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>        <span class="n">abstract_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a>
+<a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a><span class="n">abstract</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">abstract_parts</span><span class="p">)</span>
+</code></pre></div>
+<p>一篇摘要可能分成：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>BACKGROUND
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>METHODS
+<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>RESULTS
+<a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>CONCLUSIONS
+</code></pre></div>
+<p>不能只找第一个 <code>AbstractText</code>，否则可能只保存背景，丢掉最重要的结果和结论。</p>
+<h3 id="868-3">8.6.8 运行完整第3步<a class="headerlink" href="#868-3" title="Permanent link">&para;</a></h3>
+<p>下载文件中已经包含完整代码。运行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>python<span class="w"> </span>step3_parse_one_article.py
+</code></pre></div>
+<p>预期形式：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>PMID： ...
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>标题： ...
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>作者： Zhang Y | Li X | Example Study Group
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>摘要：
+<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>BACKGROUND: ...
+<a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>METHODS: ...
+<a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a>RESULTS: ...
+</code></pre></div>
+<p>如果摘要显示“这篇文献没有公开摘要”，可以回到第2步换一个检索式或稍后处理多篇数据。</p>
+<div class="admonition success">
+<p class="admonition-title">第3个检查点</p>
+<p>终端能打印 PMID 和完整标题；作者之间用 <code>|</code> 分隔；有摘要时能显示所有段落。</p>
+</div>
+<h3 id="869">8.6.9 常见错误<a class="headerlink" href="#869" title="Permanent link">&para;</a></h3>
+<h4 id="xml">找不到 XML 文件<a class="headerlink" href="#xml" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>FileNotFoundError: one_article.xml
+</code></pre></div>
+<p>检查：</p>
+<ol>
+<li>是否完成第2步；</li>
+<li>两个文件是否在同一文件夹；</li>
+<li>文件名是否完全一致。</li>
+</ol>
+<h4 id="attributeerror-nonetype-object-has-no-attribute"><code>AttributeError: 'NoneType' object has no attribute ...</code><a class="headerlink" href="#attributeerror-nonetype-object-has-no-attribute" title="Permanent link">&para;</a></h4>
+<p>说明代码没有找到某个标签。使用教程中的 <code>get_all_text()</code>，它会在节点不存在时返回空字符串。</p>
+<hr />
+<h2 id="87-410">8.7 第4步：批量保存10篇文献<a class="headerlink" href="#87-410" title="Permanent link">&para;</a></h2>
+<h3 id="871">8.7.1 批量请求，不是一篇请求一次<a class="headerlink" href="#871" title="Permanent link">&para;</a></h3>
+<p>低效方法：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>请求 PMID 1 -&gt; 等待
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>请求 PMID 2 -&gt; 等待
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>请求 PMID 3 -&gt; 等待
+</code></pre></div>
+<p>更合理的方法：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>把10个 PMID 用逗号连接 -&gt; 一次交给 EFetch
+</code></pre></div>
+<p>代码：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pmids</span><span class="p">)</span>
+</code></pre></div>
+<p>假设列表是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="p">[</span><span class="s2">&quot;111&quot;</span><span class="p">,</span> <span class="s2">&quot;222&quot;</span><span class="p">,</span> <span class="s2">&quot;333&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p>连接结果是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>111,222,333
+</code></pre></div>
+<h3 id="872">8.7.2 创建文件<a class="headerlink" href="#872" title="Permanent link">&para;</a></h3>
+<p>新建：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>step4_save_ten_articles.py
+</code></pre></div>
+<p><a download="download" href="../step4_save_ten_articles.py">下载第4步代码</a></p>
+<p>修改文件开头的邮箱，然后保存。</p>
+<h3 id="873">8.7.3 完整流程分成四块<a class="headerlink" href="#873" title="Permanent link">&para;</a></h3>
+<p>第1块：ESearch 搜索10个 PMID。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="n">search_params</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>    <span class="s2">&quot;db&quot;</span><span class="p">:</span> <span class="s2">&quot;pubmed&quot;</span><span class="p">,</span>
+<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>    <span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="s2">&quot;diabetes[Title/Abstract]&quot;</span><span class="p">,</span>
+<a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a>    <span class="s2">&quot;retmode&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+<a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a>    <span class="s2">&quot;retmax&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+<a id="__codelineno-56-6" name="__codelineno-56-6" href="#__codelineno-56-6"></a>    <span class="s2">&quot;tool&quot;</span><span class="p">:</span> <span class="s2">&quot;medical_data_course&quot;</span><span class="p">,</span>
+<a id="__codelineno-56-7" name="__codelineno-56-7" href="#__codelineno-56-7"></a>    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">my_email</span><span class="p">,</span>
+<a id="__codelineno-56-8" name="__codelineno-56-8" href="#__codelineno-56-8"></a><span class="p">}</span>
+</code></pre></div>
+<p>第2块：礼貌等待后，一次获取10篇 XML。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>
+<a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a><span class="n">fetch_params</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-57-4" name="__codelineno-57-4" href="#__codelineno-57-4"></a>    <span class="s2">&quot;db&quot;</span><span class="p">:</span> <span class="s2">&quot;pubmed&quot;</span><span class="p">,</span>
+<a id="__codelineno-57-5" name="__codelineno-57-5" href="#__codelineno-57-5"></a>    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pmids</span><span class="p">),</span>
+<a id="__codelineno-57-6" name="__codelineno-57-6" href="#__codelineno-57-6"></a>    <span class="s2">&quot;retmode&quot;</span><span class="p">:</span> <span class="s2">&quot;xml&quot;</span><span class="p">,</span>
+<a id="__codelineno-57-7" name="__codelineno-57-7" href="#__codelineno-57-7"></a>    <span class="s2">&quot;rettype&quot;</span><span class="p">:</span> <span class="s2">&quot;abstract&quot;</span><span class="p">,</span>
+<a id="__codelineno-57-8" name="__codelineno-57-8" href="#__codelineno-57-8"></a>    <span class="s2">&quot;tool&quot;</span><span class="p">:</span> <span class="s2">&quot;medical_data_course&quot;</span><span class="p">,</span>
+<a id="__codelineno-57-9" name="__codelineno-57-9" href="#__codelineno-57-9"></a>    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">my_email</span><span class="p">,</span>
+<a id="__codelineno-57-10" name="__codelineno-57-10" href="#__codelineno-57-10"></a><span class="p">}</span>
+</code></pre></div>
+<p>第3块：逐个 <code>PubmedArticle</code> 提取字段。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>
+<a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a><span class="k">for</span> <span class="n">article_node</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;PubmedArticle&quot;</span><span class="p">):</span>
+<a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a>    <span class="n">pmid</span> <span class="o">=</span> <span class="n">get_all_text</span><span class="p">(</span><span class="n">article_node</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//PMID&quot;</span><span class="p">))</span>
+<a id="__codelineno-58-5" name="__codelineno-58-5" href="#__codelineno-58-5"></a>    <span class="n">title</span> <span class="o">=</span> <span class="n">get_all_text</span><span class="p">(</span><span class="n">article_node</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//ArticleTitle&quot;</span><span class="p">))</span>
+<a id="__codelineno-58-6" name="__codelineno-58-6" href="#__codelineno-58-6"></a>    <span class="n">journal</span> <span class="o">=</span> <span class="n">get_all_text</span><span class="p">(</span><span class="n">article_node</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//Journal/Title&quot;</span><span class="p">))</span>
+<a id="__codelineno-58-7" name="__codelineno-58-7" href="#__codelineno-58-7"></a>    <span class="c1"># 继续提取摘要并放入 records</span>
+</code></pre></div>
+<p>第4块：使用 <code>csv.DictWriter</code> 保存。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;pubmed_10.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8-sig&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>    <span class="n">fieldnames</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;pmid&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;journal&quot;</span><span class="p">,</span> <span class="s2">&quot;abstract&quot;</span><span class="p">,</span> <span class="s2">&quot;source_url&quot;</span><span class="p">]</span>
+<a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a>    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">fieldnames</span><span class="p">)</span>
+<a id="__codelineno-59-4" name="__codelineno-59-4" href="#__codelineno-59-4"></a>    <span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+<a id="__codelineno-59-5" name="__codelineno-59-5" href="#__codelineno-59-5"></a>    <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
+</code></pre></div>
+<p>完整内容请打开下载的课堂代码逐行阅读。</p>
+<h3 id="874">8.7.4 运行<a class="headerlink" href="#874" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>python<span class="w"> </span>step4_save_ten_articles.py
+</code></pre></div>
+<p>预期形式：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>找到 10 个 PMID
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a>已整理： ... 标题1
+<a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a>已整理： ... 标题2
+<a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a>...
+<a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a>保存完成：pubmed_10.csv
+</code></pre></div>
+<p>打开 <code>pubmed_10.csv</code>，检查：</p>
+<ol>
+<li>表头下面大约有10行；</li>
+<li>PMID 不是空白；</li>
+<li>标题可以正常阅读；</li>
+<li>一部分摘要可能为空，这是正常数据状态；</li>
+<li><code>source_url</code> 能在浏览器中打开。</li>
+</ol>
+<div class="admonition success">
+<p class="admonition-title">第4个检查点</p>
+<p>成功生成 <code>pubmed_10.csv</code>，随机检查至少3条，PMID、标题和原始页面一致。</p>
+</div>
+<hr />
+<h2 id="88-pmid">8.8 再学分页：获取不止一批 PMID<a class="headerlink" href="#88-pmid" title="Permanent link">&para;</a></h2>
+<p>ESearch 使用“起始位置”分页：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>第1批：retstart=0，retmax=100
+<a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>第2批：retstart=100，retmax=100
+<a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a>第3批：retstart=200，retmax=100
+</code></pre></div>
+<p>可以把 <code>retstart</code> 想成“从第几条开始拿”。</p>
+<p>课堂观察代码：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="k">for</span> <span class="n">start</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+<a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>0
+<a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>100
+<a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a>200
+</code></pre></div>
+<p>放进请求参数：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a><span class="n">params</span><span class="p">[</span><span class="s2">&quot;retstart&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">start</span>
+<a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a><span class="n">params</span><span class="p">[</span><span class="s2">&quot;retmax&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+</code></pre></div>
+<p>项目7使用服务器返回的 <code>nextPageToken</code>；项目8使用自己计算的 <code>retstart</code>。看到一个新接口时，必须先查清楚它采用哪种分页方式。</p>
+<div class="admonition note">
+<p class="admonition-title">课堂版最多取多少</p>
+<p>本教程工程版把普通偏移量采集限制在9999条以内。需要更大规模时应学习 NCBI History Server，而不是无限增大循环。</p>
+</div>
+<hr />
+<h2 id="89">8.9 运行完整工程版<a class="headerlink" href="#89" title="Permanent link">&para;</a></h2>
+<p>课堂版只保存5个主要字段。工程版额外处理：</p>
+<ul>
+<li>多批 PMID 搜索；</li>
+<li>每100篇批量获取详情；</li>
+<li>网络错误自动重试；</li>
+<li>多种出版日期格式；</li>
+<li>集体作者；</li>
+<li>DOI；</li>
+<li>MeSH 医学主题词；</li>
+<li>JSON、CSV 和简单统计文件。</li>
+</ul>
+<p><a download="download" href="../pubmed_spider.py">下载完整工程源码：pubmed_spider.py</a></p>
+<p>把它放进 <code>pubmed_ai_project</code> 文件夹。</p>
+<h3 id="891-20">8.9.1 第一次只取20篇<a class="headerlink" href="#891-20" title="Permanent link">&para;</a></h3>
+<p>把邮箱换成自己的：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>python<span class="w"> </span>pubmed_spider.py<span class="w"> </span>--email<span class="w"> </span>you@example.com<span class="w"> </span>--max-records<span class="w"> </span><span class="m">20</span>
+</code></pre></div>
+<p>注意：<code>you@example.com</code> 要替换，不需要在邮箱前后增加中文引号。</p>
+<p>预期输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>&gt;&gt;&gt; 搜索进度：20/20
+<a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>&gt;&gt;&gt; 找到 20 个 PMID，开始批量获取详情
+<a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a>&gt;&gt;&gt; 详情进度：20/20
+<a id="__codelineno-67-4" name="__codelineno-67-4" href="#__codelineno-67-4"></a>&gt;&gt;&gt; 完成，共保存 20 篇文献
+</code></pre></div>
+<p>项目文件夹出现：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>pubmed_data/
+<a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a>├── pubmed_articles.json
+<a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a>├── pubmed_articles.csv
+<a id="__codelineno-68-4" name="__codelineno-68-4" href="#__codelineno-68-4"></a>└── pubmed_stats.json
+</code></pre></div>
+<p>不要移动 <code>pubmed_data</code>。项目9默认从这里读取数据。</p>
+<h3 id="892">8.9.2 更换检索式<a class="headerlink" href="#892" title="Permanent link">&para;</a></h3>
+<p>PowerShell 和 Windows 命令提示符都可以使用一行命令：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="n">python</span> <span class="n">pubmed_spider</span><span class="p">.</span><span class="n">py</span> <span class="p">-</span><span class="n">-email</span> <span class="n">you</span><span class="nv">@example</span><span class="p">.</span><span class="n">com</span> <span class="p">-</span><span class="n">-term</span> <span class="s2">&quot;asthma[Title/Abstract]&quot;</span> <span class="p">-</span><span class="n">-max-records</span> <span class="n">50</span>
+</code></pre></div>
+<p>包含 <code>AND</code> 的检索式：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a><span class="n">python</span> <span class="n">pubmed_spider</span><span class="p">.</span><span class="n">py</span> <span class="p">-</span><span class="n">-email</span> <span class="n">you</span><span class="nv">@example</span><span class="p">.</span><span class="n">com</span> <span class="p">-</span><span class="n">-term</span> <span class="s2">&quot;diabetes[Title/Abstract] AND exercise[Title/Abstract]&quot;</span> <span class="p">-</span><span class="n">-max-records</span> <span class="n">50</span>
+</code></pre></div>
+<p>整段检索式必须放在英文双引号中，否则终端会把空格后的内容误认为其他参数。</p>
+<h3 id="893">8.9.3 三个输出文件分别做什么<a class="headerlink" href="#893" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>适合做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pubmed_articles.json</code></td>
+<td>保留作者和主题词列表，给项目9继续处理</td>
+</tr>
+<tr>
+<td><code>pubmed_articles.csv</code></td>
+<td>用 Excel 浏览和筛选</td>
+</tr>
+<tr>
+<td><code>pubmed_stats.json</code></td>
+<td>查看期刊、年份和 MeSH 的简单统计</td>
+</tr>
+</tbody>
+</table>
+<p>JSON 中方括号结构要保留，不要为了看起来整齐而手工改成普通文字，否则项目9可能读不到预期数据。</p>
+<hr />
+<h2 id="810">8.10 完整排错手册<a class="headerlink" href="#810" title="Permanent link">&para;</a></h2>
+<h3 id="8101-modulenotfounderror-requests">8.10.1 <code>ModuleNotFoundError: requests</code><a class="headerlink" href="#8101-modulenotfounderror-requests" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>requests
+</code></pre></div>
+<h3 id="8102-filenotfounderror-one_articlexml">8.10.2 <code>FileNotFoundError: one_article.xml</code><a class="headerlink" href="#8102-filenotfounderror-one_articlexml" title="Permanent link">&para;</a></h3>
+<p>先运行第2步，再运行第3步。两个文件必须位于 VS Code 当前打开的同一个文件夹。</p>
+<h3 id="8103-parseerror">8.10.3 <code>ParseError</code><a class="headerlink" href="#8103-parseerror" title="Permanent link">&para;</a></h3>
+<p>表示 XML 不完整或返回内容不是 XML。临时加入：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>
+</code></pre></div>
+<p>确认开头是否有 <code>&lt;?xml</code> 或 <code>&lt;PubmedArticleSet&gt;</code>。</p>
+<h3 id="8104-429">8.10.4 状态码429<a class="headerlink" href="#8104-429" title="Permanent link">&para;</a></h3>
+<p>请求过快：</p>
+<ol>
+<li>停止同时运行的其他爬虫；</li>
+<li>等待一两分钟；</li>
+<li>保留 <code>time.sleep(0.4)</code>；</li>
+<li>不要用多个终端同时采集。</li>
+</ol>
+<h3 id="8105">8.10.5 有标题但摘要为空<a class="headerlink" href="#8105" title="Permanent link">&para;</a></h3>
+<p>并非所有 PubMed 记录都有公开摘要。程序应保留该文献并把摘要保存为空字符串，不能根据标题自行编造摘要。</p>
+<h3 id="8106">8.10.6 作者或日期格式不一致<a class="headerlink" href="#8106" title="Permanent link">&para;</a></h3>
+<p>真实历史数据本来就不完全统一：</p>
+<ul>
+<li>作者可能是个人或研究组；</li>
+<li>日期可能只有年份；</li>
+<li>新文献可能还没有 MeSH；</li>
+<li>老文献可能没有 DOI。</li>
+</ul>
+<p>空值不一定是程序错误，先去 <code>source_url</code> 核对原始记录。</p>
+<h3 id="8107-email">8.10.7 命令行提示缺少 <code>--email</code><a class="headerlink" href="#8107-email" title="Permanent link">&para;</a></h3>
+<p>工程版要求填写联系邮箱。正确命令：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>python<span class="w"> </span>pubmed_spider.py<span class="w"> </span>--email<span class="w"> </span>你的邮箱<span class="w"> </span>--max-records<span class="w"> </span><span class="m">20</span>
+</code></pre></div>
+<h3 id="8108-csv">8.10.8 CSV 打开后摘要挤成一行<a class="headerlink" href="#8108-csv" title="Permanent link">&para;</a></h3>
+<p>CSV 的一个单元格可以包含很长的摘要。用 Excel 打开后开启“自动换行”，或直接查看 JSON 文件。</p>
+<hr />
+<h2 id="811">8.11 课后练习（带提示）<a class="headerlink" href="#811" title="Permanent link">&para;</a></h2>
+<h3 id="1">练习1：换成哮喘（必做）<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>修改：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a><span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="s2">&quot;asthma[Title/Abstract]&quot;</span>
+</code></pre></div>
+<p>完成标准：得到3个 PMID，原始页面均能打开。</p>
+<h3 id="21020">练习2：把10篇改成20篇（必做）<a class="headerlink" href="#21020" title="Permanent link">&para;</a></h3>
+<p>提示：修改第4步的 <code>retmax</code>。</p>
+<p>完成标准：CSV 大约有20条数据。</p>
+<h3 id="3">练习3：统计有摘要的数量（进阶）<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>提示：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a><span class="n">with_abstract</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a>
+<a id="__codelineno-75-3" name="__codelineno-75-3" href="#__codelineno-75-3"></a><span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+<a id="__codelineno-75-4" name="__codelineno-75-4" href="#__codelineno-75-4"></a>    <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;abstract&quot;</span><span class="p">]:</span>
+<a id="__codelineno-75-5" name="__codelineno-75-5" href="#__codelineno-75-5"></a>        <span class="n">with_abstract</span> <span class="o">=</span> <span class="n">with_abstract</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-75-6" name="__codelineno-75-6" href="#__codelineno-75-6"></a>
+<a id="__codelineno-75-7" name="__codelineno-75-7" href="#__codelineno-75-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;有摘要：&quot;</span><span class="p">,</span> <span class="n">with_abstract</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="4">练习4：增加出版类型（进阶）<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>XML 路径：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>.//PublicationTypeList/PublicationType
+</code></pre></div>
+<p>因为可能有多个，要使用 <code>findall()</code> 和列表。</p>
+<h3 id="5">练习5：比较两个检索式（挑战）<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<p>分别运行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>diabetes[Title/Abstract]
+<a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>diabetes[MeSH Terms]
+</code></pre></div>
+<p>记录两次输出的总数，并用自己的话解释为什么不同。</p>
+<hr />
+<h2 id="_2">项目总结<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">你已经学会<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>知道 PubMed 是文献目录，不等于免费全文网站；</li>
+<li>能区分 PMID 和 DOI；</li>
+<li>能写简单的 PubMed 字段检索式；</li>
+<li>能用 ESearch 搜索 PMID；</li>
+<li>能用 EFetch 获取 XML 详情；</li>
+<li>能使用 ElementTree 查找 XML 标签；</li>
+<li>能正确处理多位作者和分段摘要；</li>
+<li>能批量请求并保存 CSV；</li>
+<li>知道为什么必须限速和核对原始页面。</li>
+</ul>
+<h3 id="_4">离开本项目之前，请逐项自检<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 能搜索并打印3个 PMID</li>
+<li>[ ] 能生成 <code>one_article.xml</code></li>
+<li>[ ] 能从 XML 中打印标题和作者</li>
+<li>[ ] 能生成 <code>pubmed_10.csv</code></li>
+<li>[ ] 完整工程能生成 <code>pubmed_data/pubmed_articles.json</code></li>
+<li>[ ] 能解释 ESearch 和 EFetch 各自负责什么</li>
+<li>[ ] 能解释为什么空摘要不能让 AI 猜测</li>
+</ul>
+<p>项目9会直接使用 <code>pubmed_articles.json</code>。确认这个文件存在后再继续。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "navigation.path", "search.highlight", "search.suggest", "toc.follow", "toc.integrate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

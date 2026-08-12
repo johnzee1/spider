@@ -1,0 +1,2262 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="零基础Python爬虫教学，9个医疗公开数据、医疗大数据与AI项目实战">
+      
+      
+        <meta name="author" content="爬虫教学团队">
+      
+      
+        <link rel="canonical" href="https://johnzee1.github.io/spider/%E9%A1%B9%E7%9B%AE7/%E9%A1%B9%E7%9B%AE7-ClinicalTrials%E4%B8%B4%E5%BA%8A%E8%AF%95%E9%AA%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98/">
+      
+      
+        <link rel="prev" href="../../%E9%A1%B9%E7%9B%AE6/%E9%A1%B9%E7%9B%AE6_Selenium%E5%8A%A8%E6%80%81%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/">
+      
+      
+        <link rel="next" href="../../%E9%A1%B9%E7%9B%AE8/%E9%A1%B9%E7%9B%AE8-PubMed%E5%8C%BB%E5%AD%A6%E6%96%87%E7%8C%AE%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>项目7-ClinicalTrials.gov 临床试验大数据保姆级实战 - Python爬虫实战教程 - 医疗公开数据</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#7clinicaltrialsgov" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Python爬虫实战教程 - 医疗公开数据" class="md-header__button md-logo" aria-label="Python爬虫实战教程 - 医疗公开数据" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Python爬虫实战教程 - 医疗公开数据
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              项目7-ClinicalTrials.gov 临床试验大数据保姆级实战
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Python爬虫实战教程 - 医疗公开数据" class="md-nav__button md-logo" aria-label="Python爬虫实战教程 - 医疗公开数据" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Python爬虫实战教程 - 医疗公开数据
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE1/%E9%A1%B9%E7%9B%AE1-%E7%88%AC%E5%8F%96%E5%9B%BD%E5%AE%B6%E4%B8%AD%E5%8C%BB%E8%8D%AF%E7%AE%A1%E7%90%86%E5%B1%80%E6%97%B6%E6%94%BF%E8%A6%81%E9%97%BB%E6%95%B0%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE2/%E9%A1%B9%E7%9B%AE2-%E7%88%AC%E5%8F%96%E5%8C%BB%E7%96%97%E5%81%A5%E5%BA%B7%E8%B5%84%E8%AE%AF%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE3/%E9%A1%B9%E7%9B%AE3-XPath%E7%88%AC%E5%8F%96%E5%8C%BB%E5%AD%A6%E7%99%BE%E7%A7%91%E8%8D%AF%E5%93%81%E6%95%B0%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE4/%E9%A1%B9%E7%9B%AE4-%E7%88%AC%E5%8F%96%E5%8C%BB%E5%AD%A6%E7%99%BE%E7%A7%91%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE5/%E9%A1%B9%E7%9B%AE5-Scrapy%E5%85%A5%E9%97%A8%E6%8C%87%E5%AF%BC%E4%B9%A6-%E5%AE%8C%E6%95%B4%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE6/%E9%A1%B9%E7%9B%AE6_Selenium%E5%8A%A8%E6%80%81%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目7（保姆级）
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目7（保姆级）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        合规提示
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#71-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 先弄懂：API 到底是什么
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1 先弄懂：API 到底是什么">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#711" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1.1 从去饭店点菜说起
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#712-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1.2 JSON 中的两个重要符号
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#713" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1.3 本项目的四步路线
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 准备项目文件夹
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 准备项目文件夹">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#721" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2.1 新建文件夹
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#722" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2.2 打开终端
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#723-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2.3 安装 requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#724-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2.4 验证 requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 先在浏览器里看一次 API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 先在浏览器里看一次 API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#731" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3.1 打开地址
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#732" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3.2 浏览器中应该看到什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74-1-python-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 第1步：用 Python 请求 API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.4 第1步：用 Python 请求 API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#741" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4.1 创建代码文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#742" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4.2 输入完整代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#743" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4.3 运行代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#744" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4.4 预期输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#745" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4.5 逐行理解新代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#746" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4.6 本步常见错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#75-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 第2步：提取一条临床试验
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.5 第2步：提取一条临床试验">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#751" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5.1 先认识“字典套字典”
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#752-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5.2 创建第2个文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#753" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5.3 预期输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#754" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5.4 为什么疾病显示方括号
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#755-jsondumps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5.5 用 json.dumps()观察完整结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#76-35-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6 第3步：保存5条 CSV
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.6 第3步：保存5条 CSV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#761-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.1 为什么先做5条
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#762-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.2 认识 for 循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#763-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.3 认识 .get()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#764-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.4 创建并运行第3个程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#765" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.5 预期输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#766" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.6 三行容易看不懂的代码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#77-43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7 第4步：连续获取3页
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.7 第4步：连续获取3页">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#771" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7.1 什么是下一页令牌
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#772-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7.2 创建第4个程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#773" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7.3 预期输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#774-if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7.4 理解 if
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#775-break" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7.5 理解 break
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#776-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7.6 为什么要等待1秒
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#78" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.8 从课堂版升级到完整工程版
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.8 从课堂版升级到完整工程版">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#781" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.8.1 换成哮喘
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#782" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.8.2 查看帮助
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#783" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.8.3 什么是断点续爬
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#79" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.9 完整排错手册
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.9 完整排错手册">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#791-200" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.9.1 状态码不是200
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#792-jsondecodeerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.9.2 JSONDecodeError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#793-keyerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.9.3 KeyError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#794-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.9.4 CSV 中文乱码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#795" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.9.5 结果少于指定数量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#796" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.9.6 修改代码后运行结果没有变化
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#710" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.10 课后练习（带提示）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.10 课后练习（带提示）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习1：换一个疾病（必做）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2510" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习2：把5条改成10条（必做）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习3：增加研究类型（进阶）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习4：统计状态数量（进阶）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习5：验证下一页没有重复（挑战）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="项目总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你已经会做什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        离开本项目之前，请逐项自检
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE8/%E9%A1%B9%E7%9B%AE8-PubMed%E5%8C%BB%E5%AD%A6%E6%96%87%E7%8C%AE%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目8（保姆级）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE9/%E9%A1%B9%E7%9B%AE9-AI%E5%8C%BB%E5%AD%A6%E6%96%87%E7%8C%AE%E6%99%BA%E8%83%BD%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目9（AI保姆级）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="7clinicaltrialsgov">项目7：ClinicalTrials.gov 临床试验大数据保姆级实战<a class="headerlink" href="#7clinicaltrialsgov" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>适合谁学习：</strong> 已经学过项目1和项目2，知道 <code>requests.get()</code> 是发送网络请求，但从来没有使用过网站 API 的同学。</p>
+<p><strong>最终成果：</strong> 输入一个疾病名称，自动获取公开临床试验，把编号、标题、状态和疾病保存到 CSV 文件中。</p>
+<p><strong>学习方法：</strong> 本项目拆成4个很小的程序。每完成一步，都要先看到教程中的成功结果，再进入下一步。不要一开始就运行最后的完整工程。</p>
+</blockquote>
+<hr />
+<h2 id="_1">合规提示<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>ClinicalTrials.gov 是公开的临床研究登记平台。本教程只读取网站公开提供的数据，不涉及患者病历或个人隐私。</p>
+<p>请遵守以下规则：</p>
+<ol>
+<li>只使用官方公开 API，不尝试登录、不绕过验证码。</li>
+<li>每次只采集课堂需要的少量数据。</li>
+<li>翻页时保留等待时间，不连续高速请求。</li>
+<li>数据只用于学习和统计，不能代替医生判断。</li>
+<li>报告中的研究结论必须回到官方页面核对。</li>
+</ol>
+<p>官方 API 说明页面：<a href="https://clinicaltrials.gov/data-api/api">ClinicalTrials.gov Data API</a></p>
+<hr />
+<h2 id="71-api">7.1 先弄懂：API 到底是什么<a class="headerlink" href="#71-api" title="Permanent link">&para;</a></h2>
+<h3 id="711">7.1.1 从去饭店点菜说起<a class="headerlink" href="#711" title="Permanent link">&para;</a></h3>
+<p>打开一个普通网页，就像顾客坐在饭店里看摆好盘的菜。页面包含导航栏、按钮、图片、广告和文字，这些内容主要是给人看的。</p>
+<p>API 更像饭店后厨的取餐窗口：</p>
+<ul>
+<li>你告诉窗口“我要糖尿病相关的1条临床试验”；</li>
+<li>窗口不会给你菜单、桌椅和装饰；</li>
+<li>它只把整理好的数据交给你；</li>
+<li>Python 可以直接读这些数据。</li>
+</ul>
+<p>前面项目解析的是 HTML：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>一项糖尿病研究<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>这个项目得到的是 JSON：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;nctId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NCT12345678&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;briefTitle&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;一项糖尿病研究&quot;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>JSON 不是新的编程语言，它只是一种数据格式。</p>
+<h3 id="712-json">7.1.2 JSON 中的两个重要符号<a class="headerlink" href="#712-json" title="Permanent link">&para;</a></h3>
+<p>初学者先记住两个符号：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>Python 中对应什么</th>
+<th>生活化理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{ }</code></td>
+<td>字典 <code>dict</code></td>
+<td>一个贴了很多标签的文件袋</td>
+</tr>
+<tr>
+<td><code>[ ]</code></td>
+<td>列表 <code>list</code></td>
+<td>按顺序摆放的多个文件袋</td>
+</tr>
+</tbody>
+</table>
+<p>下面是一个字典：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">student</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;小王&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">}</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>小王
+</code></pre></div>
+<p>下面是一个列表：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">students</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;小王&quot;</span><span class="p">,</span> <span class="s2">&quot;小李&quot;</span><span class="p">,</span> <span class="s2">&quot;小张&quot;</span><span class="p">]</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">students</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">students</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>小王
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>小李
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">为什么第1个元素写成 [0]</p>
+<p>Python 从0开始计数。<code>[0]</code> 是第1个，<code>[1]</code> 是第2个，<code>[2]</code> 是第3个。</p>
+</div>
+<h3 id="713">7.1.3 本项目的四步路线<a class="headerlink" href="#713" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>文件名</th>
+<th>只学习一个新知识点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第1步</td>
+<td><code>step1_test_api.py</code></td>
+<td>请求 API，确认能拿到 JSON</td>
+</tr>
+<tr>
+<td>第2步</td>
+<td><code>step2_extract_one.py</code></td>
+<td>从一条 JSON 中取出字段</td>
+</tr>
+<tr>
+<td>第3步</td>
+<td><code>step3_save_csv.py</code></td>
+<td>循环处理5条并保存 CSV</td>
+</tr>
+<tr>
+<td>第4步</td>
+<td><code>step4_pagination.py</code></td>
+<td>使用下一页令牌获取3页</td>
+</tr>
+</tbody>
+</table>
+<p>完成四步后，再运行工程版 <code>clinical_trials_spider.py</code>。</p>
+<hr />
+<h2 id="72">7.2 准备项目文件夹<a class="headerlink" href="#72" title="Permanent link">&para;</a></h2>
+<h3 id="721">7.2.1 新建文件夹<a class="headerlink" href="#721" title="Permanent link">&para;</a></h3>
+<p>请按下面的顺序操作：</p>
+<ol>
+<li>在桌面空白处单击鼠标右键。</li>
+<li>选择“新建” -&gt; “文件夹”。</li>
+<li>把文件夹命名为 <code>clinical_trials_project</code>。</li>
+<li>打开 VS Code。</li>
+<li>点击菜单“文件” -&gt; “打开文件夹”。</li>
+<li>选择刚才创建的 <code>clinical_trials_project</code>。</li>
+</ol>
+<p>完成后，VS Code 左侧应该能看到这个空文件夹。</p>
+<h3 id="722">7.2.2 打开终端<a class="headerlink" href="#722" title="Permanent link">&para;</a></h3>
+<p>在 VS Code 顶部菜单中点击：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>终端 -&gt; 新建终端
+</code></pre></div>
+<p>窗口下方会出现一个可以输入命令的区域。先输入：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>--version
+</code></pre></div>
+<p>如果看到类似下面的输出，说明 Python 可以使用：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Python 3.12.4
+</code></pre></div>
+<p>版本号不需要完全相同，只要是 Python 3.8 或更高版本即可。</p>
+<p>如果提示“无法识别 python”，先回到项目1的 Python 安装章节，不要继续运行后面的代码。</p>
+<h3 id="723-requests">7.2.3 安装 requests<a class="headerlink" href="#723-requests" title="Permanent link">&para;</a></h3>
+<p>在终端输入：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>requests
+</code></pre></div>
+<p>看到类似下面的文字表示安装成功：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Successfully installed requests-...
+</code></pre></div>
+<p>如果显示：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Requirement already satisfied
+</code></pre></div>
+<p>也表示已经安装，不需要重复安装。</p>
+<h3 id="724-requests">7.2.4 验证 requests<a class="headerlink" href="#724-requests" title="Permanent link">&para;</a></h3>
+<p>在终端输入：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import requests; print(requests.__version__)&quot;</span>
+</code></pre></div>
+<p>如果能看到版本号，而且没有红色错误，环境准备完成。</p>
+<hr />
+<h2 id="73-api">7.3 先在浏览器里看一次 API<a class="headerlink" href="#73-api" title="Permanent link">&para;</a></h2>
+<h3 id="731">7.3.1 打开地址<a class="headerlink" href="#731" title="Permanent link">&para;</a></h3>
+<p>复制下面的完整地址，粘贴到浏览器地址栏并按回车：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>https://clinicaltrials.gov/api/v2/studies?query.cond=diabetes&amp;pageSize=1&amp;format=json
+</code></pre></div>
+<p>这段地址可以拆成两部分：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>https://clinicaltrials.gov/api/v2/studies
+</code></pre></div>
+<p>上面是 API 地址。问号后面是查询条件：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>query.cond=diabetes&amp;pageSize=1&amp;format=json
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>查询条件</th>
+<th>中文意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>query.cond=diabetes</code></td>
+<td>查询糖尿病相关研究</td>
+</tr>
+<tr>
+<td><code>pageSize=1</code></td>
+<td>只返回1条</td>
+</tr>
+<tr>
+<td><code>format=json</code></td>
+<td>使用 JSON 格式返回</td>
+</tr>
+</tbody>
+</table>
+<h3 id="732">7.3.2 浏览器中应该看到什么<a class="headerlink" href="#732" title="Permanent link">&para;</a></h3>
+<p>页面开头会类似这样：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">&quot;studies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">      </span><span class="nt">&quot;protocolSection&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">        </span><span class="nt">&quot;identificationModule&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">          </span><span class="nt">&quot;nctId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NCT...&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">          </span><span class="nt">&quot;briefTitle&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">  </span><span class="nt">&quot;nextPageToken&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="p">}</span>
+</code></pre></div>
+<p>每次查询时具体编号和标题可能变化，这是正常的。你只需要确认页面中能找到：</p>
+<ul>
+<li><code>studies</code></li>
+<li><code>protocolSection</code></li>
+<li><code>nctId</code></li>
+<li><code>briefTitle</code></li>
+</ul>
+<div class="admonition success">
+<p class="admonition-title">第0个检查点</p>
+<p>浏览器能打开地址，并且页面中出现 <code>studies</code>，才进入第1步。</p>
+</div>
+<p>如果浏览器也打不开，先检查网络。此时修改 Python 代码没有用，因为问题还没有到 Python 这一层。</p>
+<hr />
+<h2 id="74-1-python-api">7.4 第1步：用 Python 请求 API<a class="headerlink" href="#74-1-python-api" title="Permanent link">&para;</a></h2>
+<h3 id="741">7.4.1 创建代码文件<a class="headerlink" href="#741" title="Permanent link">&para;</a></h3>
+<p>在 VS Code 左侧空白处单击右键：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>新建文件 -&gt; 输入 step1_test_api.py -&gt; 按回车
+</code></pre></div>
+<p>也可以直接下载课堂代码：</p>
+<p><a download="download" href="../step1_test_api.py">下载第1步代码</a></p>
+<h3 id="742">7.4.2 输入完整代码<a class="headerlink" href="#742" title="Permanent link">&para;</a></h3>
+<p>把下面的代码完整写入 <code>step1_test_api.py</code>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># -*- coding: utf-8 -*-</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="sd">&quot;&quot;&quot;项目7第1步：请求 ClinicalTrials.gov，并确认能拿到 JSON。&quot;&quot;&quot;</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="c1"># API 是网站专门留给程序使用的数据入口。</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://clinicaltrials.gov/api/v2/studies&quot;</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="c1"># params 是要交给网站的查询条件。</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>    <span class="s2">&quot;query.cond&quot;</span><span class="p">:</span> <span class="s2">&quot;diabetes&quot;</span><span class="p">,</span>  <span class="c1"># 查询糖尿病</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>    <span class="s2">&quot;pageSize&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>              <span class="c1"># 只要1条，方便第一次观察</span>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>    <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>          <span class="c1"># 要求网站返回 JSON</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="p">}</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在连接 ClinicalTrials.gov，请稍等...&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a><span class="c1"># timeout=30 表示最多等待30秒，避免网络不好时一直卡住。</span>
+<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>
+<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;状态码：&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;实际请求地址：&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+<a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>
+<a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a><span class="c1"># 状态码不是200时，这一行会报错并停止程序。</span>
+<a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a><span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a>
+<a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a><span class="c1"># 把服务器返回的 JSON 转成 Python 字典。</span>
+<a id="__codelineno-18-28" name="__codelineno-18-28" href="#__codelineno-18-28"></a><span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-18-29" name="__codelineno-18-29" href="#__codelineno-18-29"></a>
+<a id="__codelineno-18-30" name="__codelineno-18-30" href="#__codelineno-18-30"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;JSON最外层的键：&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<a id="__codelineno-18-31" name="__codelineno-18-31" href="#__codelineno-18-31"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;本页记录数：&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;studies&quot;</span><span class="p">]))</span>
+<a id="__codelineno-18-32" name="__codelineno-18-32" href="#__codelineno-18-32"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;恭喜，第一次 API 请求成功！&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="743">7.4.3 运行代码<a class="headerlink" href="#743" title="Permanent link">&para;</a></h3>
+<p>先确认代码文件已经保存。可以按快捷键：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Ctrl + S
+</code></pre></div>
+<p>然后在 VS Code 终端输入：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>python<span class="w"> </span>step1_test_api.py
+</code></pre></div>
+<h3 id="744">7.4.4 预期输出<a class="headerlink" href="#744" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>正在连接 ClinicalTrials.gov，请稍等...
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>状态码： 200
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>实际请求地址： https://clinicaltrials.gov/api/v2/studies?...
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>JSON最外层的键： dict_keys([&#39;studies&#39;, &#39;nextPageToken&#39;])
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>本页记录数： 1
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>恭喜，第一次 API 请求成功！
+</code></pre></div>
+<p><code>nextPageToken</code> 有时可能不显示，取决于查询结果是否还有下一页。只要状态码是200并且记录数是1，就算成功。</p>
+<h3 id="745">7.4.5 逐行理解新代码<a class="headerlink" href="#745" title="Permanent link">&para;</a></h3>
+<h4 id="params"><code>params</code> 是什么<a class="headerlink" href="#params" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="s2">&quot;query.cond&quot;</span><span class="p">:</span> <span class="s2">&quot;diabetes&quot;</span><span class="p">,</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="s2">&quot;pageSize&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>这是一个 Python 字典。requests 会自动把它转换成地址栏中的查询条件。不要自己用很多 <code>+</code> 号拼接网址。</p>
+<h4 id="response"><code>response</code> 是什么<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</code></pre></div>
+<p>可以把 <code>response</code> 想成网站寄回来的包裹。包裹中有：</p>
+<ul>
+<li><code>response.status_code</code>：快递是否送达；</li>
+<li><code>response.url</code>：最终访问了哪个地址；</li>
+<li><code>response.text</code>：原始文字；</li>
+<li><code>response.json()</code>：把 JSON 拆成 Python 字典。</li>
+</ul>
+<h4 id="len"><code>len()</code> 是什么<a class="headerlink" href="#len" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;studies&quot;</span><span class="p">])</span>
+</code></pre></div>
+<p><code>len()</code> 用来数数量。这里是在数 <code>studies</code> 列表中有几条记录。</p>
+<div class="admonition success">
+<p class="admonition-title">第1个检查点</p>
+<p>终端出现“状态码：200”和“本页记录数：1”。没有成功前，不要进入第2步。</p>
+</div>
+<h3 id="746">7.4.6 本步常见错误<a class="headerlink" href="#746" title="Permanent link">&para;</a></h3>
+<h4 id="requests">找不到 requests<a class="headerlink" href="#requests" title="Permanent link">&para;</a></h4>
+<p>错误文字：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>ModuleNotFoundError: No module named &#39;requests&#39;
+</code></pre></div>
+<p>解决：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>requests
+</code></pre></div>
+<h4 id="_2">找不到代码文件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>错误文字：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>can&#39;t open file &#39;step1_test_api.py&#39;
+</code></pre></div>
+<p>原因通常是终端不在项目文件夹中。检查 VS Code 左侧是否打开了 <code>clinical_trials_project</code>，文件名是否拼写完全一致。</p>
+<h4 id="_3">请求超时<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>错误中出现：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>ReadTimeout
+</code></pre></div>
+<p>先用浏览器重新打开 7.3 节的 API 地址。如果浏览器也慢，等待一会儿再试。</p>
+<hr />
+<h2 id="75-2">7.5 第2步：提取一条临床试验<a class="headerlink" href="#75-2" title="Permanent link">&para;</a></h2>
+<h3 id="751">7.5.1 先认识“字典套字典”<a class="headerlink" href="#751" title="Permanent link">&para;</a></h3>
+<p>临床试验 JSON 像一个多层档案柜：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>study
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>└── protocolSection
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    ├── identificationModule
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>    │   ├── nctId
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>    │   └── briefTitle
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>    ├── statusModule
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>    │   └── overallStatus
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>    └── conditionsModule
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>        └── conditions
+</code></pre></div>
+<p>如果想找到 <code>nctId</code>，就要按顺序打开：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>study -&gt; protocolSection -&gt; identificationModule -&gt; nctId
+</code></pre></div>
+<p>对应 Python：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">nct_id</span> <span class="o">=</span> <span class="n">study</span><span class="p">[</span><span class="s2">&quot;protocolSection&quot;</span><span class="p">][</span><span class="s2">&quot;identificationModule&quot;</span><span class="p">][</span><span class="s2">&quot;nctId&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p>刚开始觉得长是正常的。我们会先把中间层分别放进变量，让代码更容易读。</p>
+<h3 id="752-2">7.5.2 创建第2个文件<a class="headerlink" href="#752-2" title="Permanent link">&para;</a></h3>
+<p>新建：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>step2_extract_one.py
+</code></pre></div>
+<p><a download="download" href="../step2_extract_one.py">下载第2步代码</a></p>
+<p>输入完整代码：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># -*- coding: utf-8 -*-</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="sd">&quot;&quot;&quot;项目7第2步：从一条临床试验 JSON 中提取5个字段。&quot;&quot;&quot;</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://clinicaltrials.gov/api/v2/studies&quot;</span>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>    <span class="s2">&quot;query.cond&quot;</span><span class="p">:</span> <span class="s2">&quot;diabetes&quot;</span><span class="p">,</span>
+<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>    <span class="s2">&quot;pageSize&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>    <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+<a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a><span class="p">}</span>
+<a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a>
+<a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a><span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a><span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a>
+<a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a><span class="c1"># studies 是列表，[0] 表示取列表中的第1条。</span>
+<a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a><span class="n">study</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;studies&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a>
+<a id="__codelineno-33-20" name="__codelineno-33-20" href="#__codelineno-33-20"></a><span class="c1"># protocolSection 里面放着这项研究的主要资料。</span>
+<a id="__codelineno-33-21" name="__codelineno-33-21" href="#__codelineno-33-21"></a><span class="n">protocol</span> <span class="o">=</span> <span class="n">study</span><span class="p">[</span><span class="s2">&quot;protocolSection&quot;</span><span class="p">]</span>
+<a id="__codelineno-33-22" name="__codelineno-33-22" href="#__codelineno-33-22"></a>
+<a id="__codelineno-33-23" name="__codelineno-33-23" href="#__codelineno-33-23"></a><span class="c1"># 继续进入不同的小模块，提取需要的字段。</span>
+<a id="__codelineno-33-24" name="__codelineno-33-24" href="#__codelineno-33-24"></a><span class="n">identification</span> <span class="o">=</span> <span class="n">protocol</span><span class="p">[</span><span class="s2">&quot;identificationModule&quot;</span><span class="p">]</span>
+<a id="__codelineno-33-25" name="__codelineno-33-25" href="#__codelineno-33-25"></a><span class="n">status_module</span> <span class="o">=</span> <span class="n">protocol</span><span class="p">[</span><span class="s2">&quot;statusModule&quot;</span><span class="p">]</span>
+<a id="__codelineno-33-26" name="__codelineno-33-26" href="#__codelineno-33-26"></a><span class="n">conditions_module</span> <span class="o">=</span> <span class="n">protocol</span><span class="p">[</span><span class="s2">&quot;conditionsModule&quot;</span><span class="p">]</span>
+<a id="__codelineno-33-27" name="__codelineno-33-27" href="#__codelineno-33-27"></a>
+<a id="__codelineno-33-28" name="__codelineno-33-28" href="#__codelineno-33-28"></a><span class="n">nct_id</span> <span class="o">=</span> <span class="n">identification</span><span class="p">[</span><span class="s2">&quot;nctId&quot;</span><span class="p">]</span>
+<a id="__codelineno-33-29" name="__codelineno-33-29" href="#__codelineno-33-29"></a><span class="n">title</span> <span class="o">=</span> <span class="n">identification</span><span class="p">[</span><span class="s2">&quot;briefTitle&quot;</span><span class="p">]</span>
+<a id="__codelineno-33-30" name="__codelineno-33-30" href="#__codelineno-33-30"></a><span class="n">status</span> <span class="o">=</span> <span class="n">status_module</span><span class="p">[</span><span class="s2">&quot;overallStatus&quot;</span><span class="p">]</span>
+<a id="__codelineno-33-31" name="__codelineno-33-31" href="#__codelineno-33-31"></a><span class="n">conditions</span> <span class="o">=</span> <span class="n">conditions_module</span><span class="p">[</span><span class="s2">&quot;conditions&quot;</span><span class="p">]</span>
+<a id="__codelineno-33-32" name="__codelineno-33-32" href="#__codelineno-33-32"></a><span class="n">source_url</span> <span class="o">=</span> <span class="s2">&quot;https://clinicaltrials.gov/study/&quot;</span> <span class="o">+</span> <span class="n">nct_id</span>
+<a id="__codelineno-33-33" name="__codelineno-33-33" href="#__codelineno-33-33"></a>
+<a id="__codelineno-33-34" name="__codelineno-33-34" href="#__codelineno-33-34"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;研究编号：&quot;</span><span class="p">,</span> <span class="n">nct_id</span><span class="p">)</span>
+<a id="__codelineno-33-35" name="__codelineno-33-35" href="#__codelineno-33-35"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;研究标题：&quot;</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+<a id="__codelineno-33-36" name="__codelineno-33-36" href="#__codelineno-33-36"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;研究状态：&quot;</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+<a id="__codelineno-33-37" name="__codelineno-33-37" href="#__codelineno-33-37"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;研究疾病：&quot;</span><span class="p">,</span> <span class="n">conditions</span><span class="p">)</span>
+<a id="__codelineno-33-38" name="__codelineno-33-38" href="#__codelineno-33-38"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;原始页面：&quot;</span><span class="p">,</span> <span class="n">source_url</span><span class="p">)</span>
+</code></pre></div>
+<p>运行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>python<span class="w"> </span>step2_extract_one.py
+</code></pre></div>
+<h3 id="753">7.5.3 预期输出<a class="headerlink" href="#753" title="Permanent link">&para;</a></h3>
+<p>具体研究每天可能不同，但形式应该类似：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>研究编号： NCT01234567
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>研究标题： A Study of ...
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>研究状态： COMPLETED
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>研究疾病： [&#39;Diabetes Mellitus&#39;]
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>原始页面： https://clinicaltrials.gov/study/NCT01234567
+</code></pre></div>
+<p>复制最后一行网址到浏览器中，检查页面上的 NCT 编号和程序输出是否一致。</p>
+<div class="admonition note">
+<p class="admonition-title">为什么查询 diabetes，某条 conditions 可能不是 Diabetes</p>
+<p>API 会在临床试验记录的多个相关位置中检索主题，返回结果不保证每条 <code>conditions</code> 都和关键词逐字相同。例如一项研究可能在其他字段提到胰岛素或糖尿病相关内容。程序的任务是如实保存网站返回的登记字段，不应擅自把疾病改成“糖尿病”。后续做专题数据集时，还要根据 <code>conditions</code> 等字段进行二次筛选并人工抽查。</p>
+</div>
+<h3 id="754">7.5.4 为什么疾病显示方括号<a class="headerlink" href="#754" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>[&#39;Diabetes Mellitus&#39;, &#39;Obesity&#39;]
+</code></pre></div>
+<p>方括号说明它是列表。一个研究可能同时涉及多个疾病，所以网站不能只放一个普通字符串。</p>
+<h3 id="755-jsondumps">7.5.5 用 <code>json.dumps()</code>观察完整结构<a class="headerlink" href="#755-jsondumps" title="Permanent link">&para;</a></h3>
+<p>如果你想看看第1条记录的完整 JSON，可以临时在程序最后加入：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">study</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<ul>
+<li><code>ensure_ascii=False</code>：中文按正常文字显示；</li>
+<li><code>indent=2</code>：每层缩进2个空格，更容易观察。</li>
+</ul>
+<p>观察完可以删除这三行，否则终端会打印很多内容。</p>
+<div class="admonition success">
+<p class="admonition-title">第2个检查点</p>
+<p>终端能打印5个字段，最后的网址可以在浏览器中打开。</p>
+</div>
+<hr />
+<h2 id="76-35-csv">7.6 第3步：保存5条 CSV<a class="headerlink" href="#76-35-csv" title="Permanent link">&para;</a></h2>
+<h3 id="761-5">7.6.1 为什么先做5条<a class="headerlink" href="#761-5" title="Permanent link">&para;</a></h3>
+<p>如果字段提取写错，爬1000条只会得到1000条错误数据。正确顺序应该是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>先验证1条 -&gt; 再验证5条 -&gt; 最后才扩大数量
+</code></pre></div>
+<h3 id="762-for">7.6.2 认识 <code>for</code> 循环<a class="headerlink" href="#762-for" title="Permanent link">&para;</a></h3>
+<p>网站返回5条记录时，我们不应该复制5遍代码。<code>for</code> 循环可以逐条处理：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="k">for</span> <span class="n">study</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;studies&quot;</span><span class="p">]:</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">study</span><span class="p">)</span>
+</code></pre></div>
+<p>它的意思是：从 <code>studies</code> 列表中每次拿一条，暂时叫作 <code>study</code>，然后执行缩进部分。</p>
+<h3 id="763-get">7.6.3 认识 <code>.get()</code><a class="headerlink" href="#763-get" title="Permanent link">&para;</a></h3>
+<p>下面两种写法都能取标题：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="n">title</span> <span class="o">=</span> <span class="n">identification</span><span class="p">[</span><span class="s2">&quot;briefTitle&quot;</span><span class="p">]</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="n">title</span> <span class="o">=</span> <span class="n">identification</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;briefTitle&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>区别是：</p>
+<ul>
+<li>方括号找不到字段时会报 <code>KeyError</code>；</li>
+<li><code>.get()</code> 找不到字段时返回我们指定的空字符串。</li>
+</ul>
+<p>真实医疗数据并不是每条字段都齐全，因此批量处理时更适合用 <code>.get()</code>。</p>
+<h3 id="764-3">7.6.4 创建并运行第3个程序<a class="headerlink" href="#764-3" title="Permanent link">&para;</a></h3>
+<p>新建：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>step3_save_csv.py
+</code></pre></div>
+<p><a download="download" href="../step3_save_csv.py">下载第3步代码</a></p>
+<p>完整代码较长，请使用上面的下载文件，或逐行输入并对照。代码分成四块：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="c1"># 第1块：请求5条数据</span>
+<a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://clinicaltrials.gov/api/v2/studies&quot;</span>
+<a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>    <span class="s2">&quot;query.cond&quot;</span><span class="p">:</span> <span class="s2">&quot;diabetes&quot;</span><span class="p">,</span>
+<a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>    <span class="s2">&quot;pageSize&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a>    <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+<a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a><span class="p">}</span>
+<a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a><span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a><span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a>
+<a id="__codelineno-42-15" name="__codelineno-42-15" href="#__codelineno-42-15"></a><span class="c1"># 第2块：建立空列表，用来保存整理后的结果</span>
+<a id="__codelineno-42-16" name="__codelineno-42-16" href="#__codelineno-42-16"></a><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-42-17" name="__codelineno-42-17" href="#__codelineno-42-17"></a>
+<a id="__codelineno-42-18" name="__codelineno-42-18" href="#__codelineno-42-18"></a><span class="c1"># 第3块：逐条提取字段</span>
+<a id="__codelineno-42-19" name="__codelineno-42-19" href="#__codelineno-42-19"></a><span class="k">for</span> <span class="n">study</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;studies&quot;</span><span class="p">]:</span>
+<a id="__codelineno-42-20" name="__codelineno-42-20" href="#__codelineno-42-20"></a>    <span class="n">protocol</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;protocolSection&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<a id="__codelineno-42-21" name="__codelineno-42-21" href="#__codelineno-42-21"></a>    <span class="n">identification</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;identificationModule&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<a id="__codelineno-42-22" name="__codelineno-42-22" href="#__codelineno-42-22"></a>    <span class="n">status_module</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;statusModule&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<a id="__codelineno-42-23" name="__codelineno-42-23" href="#__codelineno-42-23"></a>    <span class="n">conditions_module</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;conditionsModule&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<a id="__codelineno-42-24" name="__codelineno-42-24" href="#__codelineno-42-24"></a>
+<a id="__codelineno-42-25" name="__codelineno-42-25" href="#__codelineno-42-25"></a>    <span class="n">nct_id</span> <span class="o">=</span> <span class="n">identification</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;nctId&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<a id="__codelineno-42-26" name="__codelineno-42-26" href="#__codelineno-42-26"></a>    <span class="n">title</span> <span class="o">=</span> <span class="n">identification</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;briefTitle&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<a id="__codelineno-42-27" name="__codelineno-42-27" href="#__codelineno-42-27"></a>    <span class="n">status</span> <span class="o">=</span> <span class="n">status_module</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;overallStatus&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<a id="__codelineno-42-28" name="__codelineno-42-28" href="#__codelineno-42-28"></a>    <span class="n">conditions_list</span> <span class="o">=</span> <span class="n">conditions_module</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;conditions&quot;</span><span class="p">,</span> <span class="p">[])</span>
+<a id="__codelineno-42-29" name="__codelineno-42-29" href="#__codelineno-42-29"></a>    <span class="n">conditions_text</span> <span class="o">=</span> <span class="s2">&quot; | &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">conditions_list</span><span class="p">)</span>
+<a id="__codelineno-42-30" name="__codelineno-42-30" href="#__codelineno-42-30"></a>
+<a id="__codelineno-42-31" name="__codelineno-42-31" href="#__codelineno-42-31"></a>    <span class="n">record</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-42-32" name="__codelineno-42-32" href="#__codelineno-42-32"></a>        <span class="s2">&quot;nct_id&quot;</span><span class="p">:</span> <span class="n">nct_id</span><span class="p">,</span>
+<a id="__codelineno-42-33" name="__codelineno-42-33" href="#__codelineno-42-33"></a>        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+<a id="__codelineno-42-34" name="__codelineno-42-34" href="#__codelineno-42-34"></a>        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
+<a id="__codelineno-42-35" name="__codelineno-42-35" href="#__codelineno-42-35"></a>        <span class="s2">&quot;conditions&quot;</span><span class="p">:</span> <span class="n">conditions_text</span><span class="p">,</span>
+<a id="__codelineno-42-36" name="__codelineno-42-36" href="#__codelineno-42-36"></a>        <span class="s2">&quot;source_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://clinicaltrials.gov/study/&quot;</span> <span class="o">+</span> <span class="n">nct_id</span><span class="p">,</span>
+<a id="__codelineno-42-37" name="__codelineno-42-37" href="#__codelineno-42-37"></a>    <span class="p">}</span>
+<a id="__codelineno-42-38" name="__codelineno-42-38" href="#__codelineno-42-38"></a>    <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+<a id="__codelineno-42-39" name="__codelineno-42-39" href="#__codelineno-42-39"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;已整理：&quot;</span><span class="p">,</span> <span class="n">nct_id</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+<a id="__codelineno-42-40" name="__codelineno-42-40" href="#__codelineno-42-40"></a>
+<a id="__codelineno-42-41" name="__codelineno-42-41" href="#__codelineno-42-41"></a><span class="c1"># 第4块：写入CSV文件</span>
+<a id="__codelineno-42-42" name="__codelineno-42-42" href="#__codelineno-42-42"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;clinical_trials_5.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8-sig&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<a id="__codelineno-42-43" name="__codelineno-42-43" href="#__codelineno-42-43"></a>    <span class="n">fieldnames</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;nct_id&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="s2">&quot;conditions&quot;</span><span class="p">,</span> <span class="s2">&quot;source_url&quot;</span><span class="p">]</span>
+<a id="__codelineno-42-44" name="__codelineno-42-44" href="#__codelineno-42-44"></a>    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">fieldnames</span><span class="p">)</span>
+<a id="__codelineno-42-45" name="__codelineno-42-45" href="#__codelineno-42-45"></a>    <span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+<a id="__codelineno-42-46" name="__codelineno-42-46" href="#__codelineno-42-46"></a>    <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
+<a id="__codelineno-42-47" name="__codelineno-42-47" href="#__codelineno-42-47"></a>
+<a id="__codelineno-42-48" name="__codelineno-42-48" href="#__codelineno-42-48"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;保存完成：clinical_trials_5.csv&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>运行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>python<span class="w"> </span>step3_save_csv.py
+</code></pre></div>
+<h3 id="765">7.6.5 预期输出<a class="headerlink" href="#765" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>已整理： NCT... 标题1
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>已整理： NCT... 标题2
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>已整理： NCT... 标题3
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>已整理： NCT... 标题4
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>已整理： NCT... 标题5
+<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>保存完成：clinical_trials_5.csv
+</code></pre></div>
+<p>VS Code 左侧会出现：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>clinical_trials_5.csv
+</code></pre></div>
+<p>双击打开，应该有1行表头和5行数据。</p>
+<h3 id="766">7.6.6 三行容易看不懂的代码<a class="headerlink" href="#766" title="Permanent link">&para;</a></h3>
+<h4 id="_4">把列表变成文字<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="n">conditions_text</span> <span class="o">=</span> <span class="s2">&quot; | &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">conditions_list</span><span class="p">)</span>
+</code></pre></div>
+<p>如果列表是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="p">[</span><span class="s2">&quot;Diabetes&quot;</span><span class="p">,</span> <span class="s2">&quot;Obesity&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p>连接后变成：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>Diabetes | Obesity
+</code></pre></div>
+<p>这样可以放进 CSV 的一个单元格。</p>
+<h4 id="_5">把一条记录加入总列表<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+</code></pre></div>
+<p><code>append()</code> 可以理解为把一张整理好的表格放进文件夹末尾。</p>
+<h4 id="utf-8-sig">使用 <code>utf-8-sig</code><a class="headerlink" href="#utf-8-sig" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8-sig&quot;</span>
+</code></pre></div>
+<p>这是为了让 Windows 中的 Excel 更容易正确识别中文编码。</p>
+<div class="admonition success">
+<p class="admonition-title">第3个检查点</p>
+<p><code>clinical_trials_5.csv</code> 能打开，有5条数据，并且每一行的 <code>source_url</code> 都能访问。</p>
+</div>
+<hr />
+<h2 id="77-43">7.7 第4步：连续获取3页<a class="headerlink" href="#77-43" title="Permanent link">&para;</a></h2>
+<h3 id="771">7.7.1 什么是下一页令牌<a class="headerlink" href="#771" title="Permanent link">&para;</a></h3>
+<p>项目2可能使用过第1页、第2页这样的页码。ClinicalTrials.gov 使用的是 <code>nextPageToken</code>。</p>
+<p>可以把它想成银行排队的小票：</p>
+<ol>
+<li>第一次取数据时不需要小票；</li>
+<li>服务器把第1页数据和下一张小票一起给你；</li>
+<li>请求第2页时把小票交回去；</li>
+<li>服务器再返回第2页和新小票；</li>
+<li>没有新小票时，说明没有下一页。</li>
+</ol>
+<p>不能自己编造令牌，也不能一直重复使用旧令牌。</p>
+<h3 id="772-4">7.7.2 创建第4个程序<a class="headerlink" href="#772-4" title="Permanent link">&para;</a></h3>
+<p>新建：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>step4_pagination.py
+</code></pre></div>
+<p><a download="download" href="../step4_pagination.py">下载第4步代码</a></p>
+<p>核心代码：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>
+<a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://clinicaltrials.gov/api/v2/studies&quot;</span>
+<a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a><span class="n">page_token</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a><span class="n">all_records</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a>
+<a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a><span class="c1"># range(1, 4) 会产生1、2、3，所以循环3次。</span>
+<a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a><span class="k">for</span> <span class="n">page_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+<a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a>    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-52-11" name="__codelineno-52-11" href="#__codelineno-52-11"></a>        <span class="s2">&quot;query.cond&quot;</span><span class="p">:</span> <span class="s2">&quot;diabetes&quot;</span><span class="p">,</span>
+<a id="__codelineno-52-12" name="__codelineno-52-12" href="#__codelineno-52-12"></a>        <span class="s2">&quot;pageSize&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-52-13" name="__codelineno-52-13" href="#__codelineno-52-13"></a>        <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+<a id="__codelineno-52-14" name="__codelineno-52-14" href="#__codelineno-52-14"></a>    <span class="p">}</span>
+<a id="__codelineno-52-15" name="__codelineno-52-15" href="#__codelineno-52-15"></a>
+<a id="__codelineno-52-16" name="__codelineno-52-16" href="#__codelineno-52-16"></a>    <span class="c1"># 第1页没有令牌；从第2页开始加入上一页令牌。</span>
+<a id="__codelineno-52-17" name="__codelineno-52-17" href="#__codelineno-52-17"></a>    <span class="k">if</span> <span class="n">page_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-52-18" name="__codelineno-52-18" href="#__codelineno-52-18"></a>        <span class="n">params</span><span class="p">[</span><span class="s2">&quot;pageToken&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">page_token</span>
+<a id="__codelineno-52-19" name="__codelineno-52-19" href="#__codelineno-52-19"></a>
+<a id="__codelineno-52-20" name="__codelineno-52-20" href="#__codelineno-52-20"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在请求第&quot;</span><span class="p">,</span> <span class="n">page_number</span><span class="p">,</span> <span class="s2">&quot;页...&quot;</span><span class="p">)</span>
+<a id="__codelineno-52-21" name="__codelineno-52-21" href="#__codelineno-52-21"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<a id="__codelineno-52-22" name="__codelineno-52-22" href="#__codelineno-52-22"></a>    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<a id="__codelineno-52-23" name="__codelineno-52-23" href="#__codelineno-52-23"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-52-24" name="__codelineno-52-24" href="#__codelineno-52-24"></a>
+<a id="__codelineno-52-25" name="__codelineno-52-25" href="#__codelineno-52-25"></a>    <span class="n">studies</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;studies&quot;</span><span class="p">,</span> <span class="p">[])</span>
+<a id="__codelineno-52-26" name="__codelineno-52-26" href="#__codelineno-52-26"></a>    <span class="k">for</span> <span class="n">study</span> <span class="ow">in</span> <span class="n">studies</span><span class="p">:</span>
+<a id="__codelineno-52-27" name="__codelineno-52-27" href="#__codelineno-52-27"></a>        <span class="n">identification</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-52-28" name="__codelineno-52-28" href="#__codelineno-52-28"></a>            <span class="n">study</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;protocolSection&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;identificationModule&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<a id="__codelineno-52-29" name="__codelineno-52-29" href="#__codelineno-52-29"></a>        <span class="p">)</span>
+<a id="__codelineno-52-30" name="__codelineno-52-30" href="#__codelineno-52-30"></a>        <span class="n">record</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-52-31" name="__codelineno-52-31" href="#__codelineno-52-31"></a>            <span class="s2">&quot;nct_id&quot;</span><span class="p">:</span> <span class="n">identification</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;nctId&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+<a id="__codelineno-52-32" name="__codelineno-52-32" href="#__codelineno-52-32"></a>            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">identification</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;briefTitle&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+<a id="__codelineno-52-33" name="__codelineno-52-33" href="#__codelineno-52-33"></a>        <span class="p">}</span>
+<a id="__codelineno-52-34" name="__codelineno-52-34" href="#__codelineno-52-34"></a>        <span class="n">all_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+<a id="__codelineno-52-35" name="__codelineno-52-35" href="#__codelineno-52-35"></a>
+<a id="__codelineno-52-36" name="__codelineno-52-36" href="#__codelineno-52-36"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;本页得到&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">studies</span><span class="p">),</span> <span class="s2">&quot;条，累计&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_records</span><span class="p">),</span> <span class="s2">&quot;条&quot;</span><span class="p">)</span>
+<a id="__codelineno-52-37" name="__codelineno-52-37" href="#__codelineno-52-37"></a>
+<a id="__codelineno-52-38" name="__codelineno-52-38" href="#__codelineno-52-38"></a>    <span class="n">page_token</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;nextPageToken&quot;</span><span class="p">)</span>
+<a id="__codelineno-52-39" name="__codelineno-52-39" href="#__codelineno-52-39"></a>    <span class="k">if</span> <span class="n">page_token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-52-40" name="__codelineno-52-40" href="#__codelineno-52-40"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;已经没有下一页。&quot;</span><span class="p">)</span>
+<a id="__codelineno-52-41" name="__codelineno-52-41" href="#__codelineno-52-41"></a>        <span class="k">break</span>
+<a id="__codelineno-52-42" name="__codelineno-52-42" href="#__codelineno-52-42"></a>
+<a id="__codelineno-52-43" name="__codelineno-52-43" href="#__codelineno-52-43"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-52-44" name="__codelineno-52-44" href="#__codelineno-52-44"></a>
+<a id="__codelineno-52-45" name="__codelineno-52-45" href="#__codelineno-52-45"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">前3条结果：&quot;</span><span class="p">)</span>
+<a id="__codelineno-52-46" name="__codelineno-52-46" href="#__codelineno-52-46"></a><span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">all_records</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+<a id="__codelineno-52-47" name="__codelineno-52-47" href="#__codelineno-52-47"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;nct_id&quot;</span><span class="p">],</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">])</span>
+</code></pre></div>
+<p>运行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>python<span class="w"> </span>step4_pagination.py
+</code></pre></div>
+<h3 id="773">7.7.3 预期输出<a class="headerlink" href="#773" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>正在请求第 1 页...
+<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>本页得到 5 条，累计 5 条
+<a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>正在请求第 2 页...
+<a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a>本页得到 5 条，累计 10 条
+<a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a>正在请求第 3 页...
+<a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a>本页得到 5 条，累计 15 条
+<a id="__codelineno-54-7" name="__codelineno-54-7" href="#__codelineno-54-7"></a>
+<a id="__codelineno-54-8" name="__codelineno-54-8" href="#__codelineno-54-8"></a>前3条结果：
+<a id="__codelineno-54-9" name="__codelineno-54-9" href="#__codelineno-54-9"></a>NCT... 标题...
+<a id="__codelineno-54-10" name="__codelineno-54-10" href="#__codelineno-54-10"></a>NCT... 标题...
+<a id="__codelineno-54-11" name="__codelineno-54-11" href="#__codelineno-54-11"></a>NCT... 标题...
+</code></pre></div>
+<h3 id="774-if">7.7.4 理解 <code>if</code><a class="headerlink" href="#774-if" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="k">if</span> <span class="n">page_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;pageToken&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">page_token</span>
+</code></pre></div>
+<p>意思是：“如果手里有下一页小票，才把小票交给服务器。”第1次循环时 <code>page_token</code> 是 <code>None</code>，因此不会执行缩进代码。</p>
+<h3 id="775-break">7.7.5 理解 <code>break</code><a class="headerlink" href="#775-break" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="k">if</span> <span class="n">page_token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>    <span class="k">break</span>
+</code></pre></div>
+<p><code>break</code> 表示立即结束整个循环。没有下一页令牌时，继续循环也没有意义。</p>
+<h3 id="776-1">7.7.6 为什么要等待1秒<a class="headerlink" href="#776-1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>程序暂停1秒再请求下一页。课堂练习不追求最快，稳定和不给服务器造成压力更重要。</p>
+<div class="admonition success">
+<p class="admonition-title">第4个检查点</p>
+<p>程序能输出3页进度，累计数量正常增加，没有反复出现同一页。</p>
+</div>
+<hr />
+<h2 id="78">7.8 从课堂版升级到完整工程版<a class="headerlink" href="#78" title="Permanent link">&para;</a></h2>
+<p>前四步已经覆盖了爬虫的主流程：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>请求 -&gt; 解析 -&gt; 循环 -&gt; 翻页 -&gt; 保存
+</code></pre></div>
+<p>完整工程版增加了以下能力：</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>为什么需要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>命令行参数</td>
+<td>不改源码就能换疾病和数量</td>
+</tr>
+<tr>
+<td>自动重试</td>
+<td>临时网络错误时再尝试几次</td>
+</tr>
+<tr>
+<td>安全读取多层字典</td>
+<td>某条记录缺字段时不让整个任务停止</td>
+</tr>
+<tr>
+<td>NCT编号去重</td>
+<td>防止重复记录</td>
+</tr>
+<tr>
+<td>每页保存</td>
+<td>运行中断时减少数据损失</td>
+</tr>
+<tr>
+<td>断点续爬</td>
+<td>下次从中断位置继续</td>
+</tr>
+<tr>
+<td>JSON + CSV</td>
+<td>程序处理和 Excel 查看都方便</td>
+</tr>
+</tbody>
+</table>
+<p>这些是工程提升内容，不要求第一次看懂所有函数。</p>
+<p><a download="download" href="../clinical_trials_spider.py">下载完整工程源码：clinical_trials_spider.py</a></p>
+<p>把文件放进 <code>clinical_trials_project</code>，先使用默认设置：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>python<span class="w"> </span>clinical_trials_spider.py
+</code></pre></div>
+<p>预期出现：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>&gt;&gt;&gt; 检索疾病/主题：diabetes
+<a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a>&gt;&gt;&gt; 本次最多采集：100 条
+<a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a>&gt;&gt;&gt; 正在请求第 1 页...已累计 ... 条
+<a id="__codelineno-60-4" name="__codelineno-60-4" href="#__codelineno-60-4"></a>...
+<a id="__codelineno-60-5" name="__codelineno-60-5" href="#__codelineno-60-5"></a>&gt;&gt;&gt; 完成！JSON：clinical_trials_data\clinical_trials.json
+<a id="__codelineno-60-6" name="__codelineno-60-6" href="#__codelineno-60-6"></a>&gt;&gt;&gt; 完成！CSV ：clinical_trials_data\clinical_trials.csv
+</code></pre></div>
+<h3 id="781">7.8.1 换成哮喘<a class="headerlink" href="#781" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>python<span class="w"> </span>clinical_trials_spider.py<span class="w"> </span>--condition<span class="w"> </span>asthma<span class="w"> </span>--max-records<span class="w"> </span><span class="m">50</span>
+</code></pre></div>
+<p>含有空格的条件要加英文双引号：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>python<span class="w"> </span>clinical_trials_spider.py<span class="w"> </span>--condition<span class="w"> </span><span class="s2">&quot;lung cancer&quot;</span><span class="w"> </span>--max-records<span class="w"> </span><span class="m">50</span>
+</code></pre></div>
+<h3 id="782">7.8.2 查看帮助<a class="headerlink" href="#782" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>python<span class="w"> </span>clinical_trials_spider.py<span class="w"> </span>--help
+</code></pre></div>
+<p>参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+<th>初学建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--condition</code></td>
+<td>疾病或主题</td>
+<td>先用英文关键词</td>
+</tr>
+<tr>
+<td><code>--max-records</code></td>
+<td>最大条数</td>
+<td>第一次不超过100</td>
+</tr>
+<tr>
+<td><code>--page-size</code></td>
+<td>每页条数</td>
+<td>保持默认50</td>
+</tr>
+<tr>
+<td><code>--output-dir</code></td>
+<td>输出文件夹</td>
+<td>保持默认即可</td>
+</tr>
+<tr>
+<td><code>--resume</code></td>
+<td>从断点继续</td>
+<td>中断后再使用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="783">7.8.3 什么是断点续爬<a class="headerlink" href="#783" title="Permanent link">&para;</a></h3>
+<p>运行过程中按一次 <code>Ctrl+C</code>，程序会停止。因为完整工程每页都会保存，已经得到的数据还在。</p>
+<p>重新运行原命令并加 <code>--resume</code>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>python<span class="w"> </span>clinical_trials_spider.py<span class="w"> </span>--condition<span class="w"> </span>diabetes<span class="w"> </span>--max-records<span class="w"> </span><span class="m">100</span><span class="w"> </span>--resume
+</code></pre></div>
+<p>注意：疾病条件必须和中断前相同。程序会主动检查，避免把两个主题混在同一个文件中。</p>
+<hr />
+<h2 id="79">7.9 完整排错手册<a class="headerlink" href="#79" title="Permanent link">&para;</a></h2>
+<h3 id="791-200">7.9.1 状态码不是200<a class="headerlink" href="#791-200" title="Permanent link">&para;</a></h3>
+<p>先打印：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>
+</code></pre></div>
+<p>常见状态码：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">状态码</th>
+<th>意思</th>
+<th>应该怎么做</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">200</td>
+<td>成功</td>
+<td>继续解析</td>
+</tr>
+<tr>
+<td style="text-align: right;">400</td>
+<td>查询参数有问题</td>
+<td>检查参数名和内容</td>
+</tr>
+<tr>
+<td style="text-align: right;">404</td>
+<td>地址不存在</td>
+<td>对照教程检查 API 地址</td>
+</tr>
+<tr>
+<td style="text-align: right;">429</td>
+<td>请求太快</td>
+<td>停止程序，稍后再试并增加等待</td>
+</tr>
+<tr>
+<td style="text-align: right;">500/503</td>
+<td>服务器临时异常</td>
+<td>等待后重试</td>
+</tr>
+</tbody>
+</table>
+<h3 id="792-jsondecodeerror">7.9.2 <code>JSONDecodeError</code><a class="headerlink" href="#792-jsondecodeerror" title="Permanent link">&para;</a></h3>
+<p>说明返回内容不是正常 JSON。先检查状态码，再打印开头内容：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>
+</code></pre></div>
+<p>不要直接删除 <code>response.json()</code>，应该先找到服务器为什么没有返回 JSON。</p>
+<h3 id="793-keyerror">7.9.3 <code>KeyError</code><a class="headerlink" href="#793-keyerror" title="Permanent link">&para;</a></h3>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>KeyError: &#39;officialTitle&#39;
+</code></pre></div>
+<p>说明这条数据没有该字段。批量代码中改用：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a><span class="n">title</span> <span class="o">=</span> <span class="n">identification</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;officialTitle&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="794-csv">7.9.4 CSV 中文乱码<a class="headerlink" href="#794-csv" title="Permanent link">&para;</a></h3>
+<p>确认保存代码包含：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8-sig&quot;</span>
+</code></pre></div>
+<p>如果文件已经用其他编码生成，修改代码后需要重新运行并覆盖旧文件。</p>
+<h3 id="795">7.9.5 结果少于指定数量<a class="headerlink" href="#795" title="Permanent link">&para;</a></h3>
+<p>可能原因：</p>
+<ul>
+<li>查询本来就没有那么多结果；</li>
+<li>已经到最后一页；</li>
+<li>部分记录缺少唯一编号而被工程版跳过。</li>
+</ul>
+<p>这不一定是程序错误。</p>
+<h3 id="796">7.9.6 修改代码后运行结果没有变化<a class="headerlink" href="#796" title="Permanent link">&para;</a></h3>
+<p>检查三件事：</p>
+<ol>
+<li>是否按 <code>Ctrl+S</code> 保存；</li>
+<li>终端运行的文件名是否就是刚修改的文件；</li>
+<li>VS Code 是否打开了正确项目文件夹。</li>
+</ol>
+<hr />
+<h2 id="710">7.10 课后练习（带提示）<a class="headerlink" href="#710" title="Permanent link">&para;</a></h2>
+<h3 id="1">练习1：换一个疾病（必做）<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>把第3步中的：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a><span class="s2">&quot;query.cond&quot;</span><span class="p">:</span> <span class="s2">&quot;diabetes&quot;</span>
+</code></pre></div>
+<p>改成：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="s2">&quot;query.cond&quot;</span><span class="p">:</span> <span class="s2">&quot;asthma&quot;</span>
+</code></pre></div>
+<p>重新运行，打开 CSV 检查结果。</p>
+<h3 id="2510">练习2：把5条改成10条（必做）<a class="headerlink" href="#2510" title="Permanent link">&para;</a></h3>
+<p>提示：只需要修改 <code>pageSize</code>。</p>
+<p>完成标准：CSV 中除表头外有10行数据。</p>
+<h3 id="3">练习3：增加研究类型（进阶）<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>研究类型的路径：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>protocolSection -&gt; designModule -&gt; studyType
+</code></pre></div>
+<p>提示代码：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a><span class="n">design_module</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;designModule&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a><span class="n">study_type</span> <span class="o">=</span> <span class="n">design_module</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;studyType&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>还要把 <code>study_type</code> 加入 <code>record</code> 和 <code>fieldnames</code>。</p>
+<h3 id="4">练习4：统计状态数量（进阶）<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>使用一个字典记录每种状态出现的次数。例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a><span class="n">status_count</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a>
+<a id="__codelineno-74-3" name="__codelineno-74-3" href="#__codelineno-74-3"></a><span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+<a id="__codelineno-74-4" name="__codelineno-74-4" href="#__codelineno-74-4"></a>    <span class="n">status</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span>
+<a id="__codelineno-74-5" name="__codelineno-74-5" href="#__codelineno-74-5"></a>    <span class="n">status_count</span><span class="p">[</span><span class="n">status</span><span class="p">]</span> <span class="o">=</span> <span class="n">status_count</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-74-6" name="__codelineno-74-6" href="#__codelineno-74-6"></a>
+<a id="__codelineno-74-7" name="__codelineno-74-7" href="#__codelineno-74-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">status_count</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="5">练习5：验证下一页没有重复（挑战）<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<p>把所有 NCT 编号放入集合：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a><span class="n">ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+</code></pre></div>
+<p>比较 <code>len(ids)</code> 和 <code>len(all_records)</code>。如果相同，说明编号没有重复。</p>
+<hr />
+<h2 id="_6">项目总结<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">你已经会做什么<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>知道 HTML 页面和 JSON API 的区别；</li>
+<li>能看懂 JSON 中的字典和列表；</li>
+<li>能用 <code>params</code> 发送查询条件；</li>
+<li>能从多层字典中提取字段；</li>
+<li>能用 <code>for</code> 循环处理多条记录；</li>
+<li>能把列表字段整理后写入 CSV；</li>
+<li>能使用 <code>nextPageToken</code> 获取下一页；</li>
+<li>知道先验证少量数据，再扩大采集规模。</li>
+</ul>
+<h3 id="_8">离开本项目之前，请逐项自检<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 第1步能输出状态码200</li>
+<li>[ ] 第2步能打印1条研究的5个字段</li>
+<li>[ ] 第3步能生成包含5条数据的 CSV</li>
+<li>[ ] 第4步能连续获取3页</li>
+<li>[ ] 能用一句话解释 <code>nextPageToken</code></li>
+<li>[ ] 能说出为什么要保留 <code>time.sleep(1)</code></li>
+</ul>
+<p>全部完成后，再进入项目8。项目8会使用相同的 API 思想，但服务器返回的详情是 XML。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "navigation.path", "search.highlight", "search.suggest", "toc.follow", "toc.integrate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
