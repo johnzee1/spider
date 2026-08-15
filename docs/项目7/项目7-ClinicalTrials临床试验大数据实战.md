@@ -1,8 +1,8 @@
 ---
-title: "项目7-ClinicalTrials.gov 临床试验大数据保姆级实战"
+title: "项目7-ClinicalTrials.gov 临床试验大数据实战"
 ---
 
-# 项目7：ClinicalTrials.gov 临床试验大数据保姆级实战
+# 项目7：ClinicalTrials.gov 临床试验大数据实战
 
 > **适合谁学习：** 已经学过项目1和项目2，知道 `requests.get()` 是发送网络请求，但从来没有使用过网站 API 的同学。
 >

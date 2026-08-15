@@ -1,8 +1,8 @@
 ---
-title: "项目8-PubMed 医学文献大数据保姆级实战"
+title: "项目8-PubMed 医学文献大数据实战"
 ---
 
-# 项目8：PubMed 医学文献大数据保姆级实战
+# 项目8：PubMed 医学文献大数据实战
 
 > **适合谁学习：** 已经完成项目7，能用 requests 获取 JSON，但从来没有使用过 PubMed 或 XML 的同学。
 >

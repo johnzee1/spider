@@ -20,9 +20,9 @@
 | 项目4 | 爬取医学百科网站数据 | requests + 多页面爬取 |
 | 项目5 | Scrapy入门指导书 | Scrapy 框架 |
 | 项目6 | Selenium动态爬虫实战 | Selenium + ChromeDriver |
-| 项目7 | ClinicalTrials.gov 临床试验大数据保姆级实战 | JSON API + 游标分页 + 断点续爬 |
-| 项目8 | PubMed 医学文献大数据保姆级实战 | E-utilities + JSON/XML + 批量采集 |
-| 项目9 | AI 医学文献智能爬虫保姆级实战 | PubMed + Ollama + 结构化抽取 + 结果校验 |
+| 项目7 | ClinicalTrials.gov 临床试验大数据实战 | JSON API + 游标分页 + 断点续爬 |
+| 项目8 | PubMed 医学文献大数据实战 | E-utilities + JSON/XML + 批量采集 |
+| 项目9 | AI 医学文献智能爬虫实战 | PubMed + Ollama + 结构化抽取 + 结果校验 |
 
 ## 学习路线
 
